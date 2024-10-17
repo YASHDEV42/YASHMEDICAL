@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Rubik } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
-import { arSA } from "@clerk/localizations";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,12 +15,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider localization={arSA}>
-      <html lang="ar">
-        <body>
-          <div className={rubik.className}>{children}</div>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="ar">
+      <body>
+        <div className={rubik.className}>{children}</div>
+      </body>
+    </html>
   );
 }
