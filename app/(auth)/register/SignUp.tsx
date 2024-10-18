@@ -12,7 +12,7 @@ const initialState: RegisterFormState = {
 
 const SignUp: React.FC = () => {
   const { pending } = useFormStatus();
-  const [state, formAction] = useFormState(register as any, initialState);
+  const [state, formAction] = useFormState(register, initialState);
 
   return (
     <section className="lg:w-[80vw] w-[90vw] mx-auto flex flex-col items-center justify-center gap-2 mb-8">
