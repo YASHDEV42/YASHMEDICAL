@@ -204,52 +204,67 @@ const HomePage = () => {
         <h1 className="lg:text-5xl md:text-3xl text-xl font-semibold lg:mb-7 md:mb-5 mb-3">
           طاقمنا الطبي الخبير
         </h1>
-        <div className=" flex lg:flex-row flex-col justify-around items-center w-full">
-          <div className=" w-80 h-44 border-2 border-slate-400 flex flex-col justify-end items-center gap-5 rounded-3xl relative pb-3">
-            <Image
-              src="/doctor4.jpg"
-              width={150}
-              height={150}
-              alt="doctor"
-              className="
+        <div className="flex flex-col w-full justify-between items-center gap-7">
+          <div className=" flex lg:flex-row flex-col justify-around items-center w-full">
+            <div className=" w-80 h-44 border-2 border-slate-400 flex flex-col justify-end items-center gap-5 rounded-3xl relative pb-3">
+              <Image
+                src="/doctor4.jpg"
+                width={150}
+                height={150}
+                alt="doctor"
+                className="
               rounded-full object-cover w-52 h-52 absolute -top-28 
               "
-            />
-            <div>
-              <h2 className="lg:text-2xl md:text-xl text-lg ">الدكتور محمد</h2>
-              <p>مختص اعصاب اسنان</p>
+              />
+              <div>
+                <h2 className="lg:text-2xl md:text-xl text-lg ">
+                  الدكتور محمد
+                </h2>
+                <p>مختص اعصاب اسنان</p>
+              </div>
             </div>
-          </div>
-          <div className=" w-80 h-44 border-2 border-slate-400 flex flex-col justify-end items-center gap-5 rounded-3xl relative pb-3">
-            <Image
-              src="/doctor4.jpg"
-              width={150}
-              height={150}
-              alt="doctor"
-              className="
+            <div className=" w-80 h-44 border-2 border-slate-400 flex flex-col justify-end items-center gap-5 rounded-3xl relative pb-3">
+              <Image
+                src="/doctor4.jpg"
+                width={150}
+                height={150}
+                alt="doctor"
+                className="
               rounded-full object-cover w-52 h-52 absolute -top-28 
               "
-            />
-            <div>
-              <h2 className="lg:text-2xl md:text-xl text-lg ">الدكتور محمد</h2>
-              <p>مختص اعصاب اسنان</p>
+              />
+              <div>
+                <h2 className="lg:text-2xl md:text-xl text-lg ">
+                  الدكتور محمد
+                </h2>
+                <p>مختص اعصاب اسنان</p>
+              </div>
             </div>
-          </div>
-          <div className=" w-80 h-44 border-2 border-slate-400 flex flex-col justify-end items-center gap-5 rounded-3xl relative pb-3">
-            <Image
-              src="/doctor4.jpg"
-              width={150}
-              height={150}
-              alt="doctor"
-              className="
+            <div className=" w-80 h-44 border-2 border-slate-400 flex flex-col justify-end items-center gap-5 rounded-3xl relative pb-3">
+              <Image
+                src="/doctor4.jpg"
+                width={150}
+                height={150}
+                alt="doctor"
+                className="
               rounded-full object-cover w-52 h-52 absolute -top-28 
               "
-            />
-            <div>
-              <h2 className="lg:text-2xl md:text-xl text-lg ">الدكتور محمد</h2>
-              <p>مختص اعصاب اسنان</p>
+              />
+              <div>
+                <h2 className="lg:text-2xl md:text-xl text-lg ">
+                  الدكتور محمد
+                </h2>
+                <p>مختص اعصاب اسنان</p>
+              </div>
             </div>
           </div>
+          <Link
+            href="/"
+            className="flex flex-row items-center justify-center gap-2 w-28 h-10 border-2 border-slate-400 rounded-md"
+          >
+            <ArrowBigLeft />
+            المزيد
+          </Link>
         </div>
       </section>
     </>
