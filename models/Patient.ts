@@ -11,7 +11,6 @@ const patientSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       select: false,
     },
-    address: { type: String, required: true },
     phoneNumber: { type: String, required: true },
   },
   {
@@ -19,6 +18,7 @@ const patientSchema = new mongoose.Schema(
   }
 );
 
-const Patient = mongoose.model("Patient", patientSchema);
+const Patient =
+  mongoose.models.Patient || mongoose.model("Patient", patientSchema);
 
 export default Patient;

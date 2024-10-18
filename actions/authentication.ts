@@ -41,12 +41,13 @@ const login = async (prevState: any, formData: FormData) => {
 };
 
 const register = async (prevState: any, formData: FormData) => {
-  const firstName = formData.get("firstName") as string;
-  const lastName = formData.get("lastName") as string;
+  const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const ssn = formData.get("ssn") as string;
+  const dateOfBirth = formData.get("date_of_birth") as string;
 
-  if (!firstName || !lastName || !email || !password) {
+  if (!name || !email || !password || !ssn || !dateOfBirth) {
     return { message: "Please fill in all fields" };
   }
 
@@ -66,10 +67,12 @@ const register = async (prevState: any, formData: FormData) => {
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   await Patient.create({
-    firstName,
-    lastName,
+    name,
     email,
     password: hashedPassword,
+    ssn,
+    phoneNumber: "8888888888",
+    dateOfBirth,
   });
   redirect("/login");
 };
