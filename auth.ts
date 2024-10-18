@@ -1,7 +1,7 @@
 import NextAuth, { Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs"; // Fixed import typo
-import { Patient } from "./models/Patient"; // Removed duplicate import
+import Patient from "./models/Patient";
 import connectDB from "./lib/db";
 import { JWT } from "next-auth/jwt";
 import type { Provider } from "next-auth/providers";
@@ -23,9 +23,7 @@ const providers: Provider[] = [
 
       await connectDB();
 
-      const user: Patient | null = await Patient.findOne({ email }).select(
-        "+password"
-      );
+      const user = await Patient.findOne({ email }).select("+password");
 
       if (!user || !user.password) {
         throw new Error("Invalid credentials");
@@ -38,9 +36,8 @@ const providers: Provider[] = [
       }
 
       const userData = {
-        name: `${user.firstName} ${user.lastName}`,
+        name: user.name,
         email: user.email,
-        role: user.role,
         id: user._id.toString(),
       };
 
