@@ -267,6 +267,35 @@ const HomePage = () => {
           </Link>
         </div>
       </section>
+
+      <section
+        className="
+      w=screen mx-auto h-screen flex flex-col justify-center items-center
+      "
+      >
+        <div className="background-img">
+          <div className="h-full flex flex-col justify-center gap-5 items-center lg:w-[80vw] w-[90vw] mx-auto text-white">
+            <h2 className="font-semibold lg:text-xl md:text-lg text-base">
+              نحن نضع ابتسامتك على رأس أولوياتنا
+            </h2>
+            <h1 className=" lg:text-5xl md:text-2xl text-lg font-semibold">
+              صدق, توقع, حقق
+            </h1>
+            <Link
+              href="/"
+              className="w-44 h-14 border-2 border-slate-400 flex justify-center items-center mt-5 rounded-md cursor-pointer"
+            >
+              احجز موعدك الان
+            </Link>
+          </div>
+        </div>
+        <div className="h-1/5 w-full bg-slate-800 flex flex-row justify-center items-center gap-12">
+          <div className="h-full flex justify-center items-center text-white">
+            <p>مجمع البشير © 2024</p>
+          </div>
+          <Image src="/logo-1-ai-1.png" alt="main" width={70} height={70} />
+        </div>
+      </section>
     </>
   );
 };

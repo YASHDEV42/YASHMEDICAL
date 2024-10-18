@@ -3,7 +3,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="w-[80vw] mx-auto h-16 flex justify-between items-center flex-row fixed top-0 left-[10vw]">
+    <nav className="w-[100vw] mx-auto h-16 flex justify-between items-center flex-row fixed top-0 left-0 pl-[10vw] bg-slate-50 z-50">
       <h1 className=" text-xl font-semibold">مجمع البشير</h1>
       <ul className="w-1/3 text-lg font-semibold flex justify-between items-end">
         <li>
