@@ -48,6 +48,39 @@ body {
   filter: brightness(50%);
   z-index: -1;
 }
+.my-input {
+  @apply text-lg;
+  @apply font-semibold;
+  @apply w-3/4;
+  @apply md:w-1/2;
+  @apply lg:w-5/12;
+  @apply rounded-md;
+  @apply p-1;
+  @apply shadow-sm;
+  @apply border-2;
+  @apply border-slate-200;
+  @apply focus:outline-none;
+  @apply focus:ring-2;
+  @apply focus:ring-slate-400;
+  @apply focus:border-slate-400;
+  @apply focus:shadow-lg;
+  @apply hover:shadow-md;
+  @apply hover:border-slate-300;
+  @apply transition;
+  @apply duration-300;
+  @apply mb-2;
+}
+.my-input:not(:placeholder-shown) {
+  @apply ring-2;
+  @apply ring-slate-400;
+}
+label {
+  @apply w-3/4;
+  @apply md:w-1/2;
+  @apply lg:w-5/12;
+  @apply text-xl;
+  @apply font-bold;
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;
