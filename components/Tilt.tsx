@@ -1,34 +1,34 @@
-"use client";
-import React, { useEffect, useRef } from "react";
-import VanillaTilt, { HTMLVanillaTiltElement } from "vanilla-tilt";
-import { TiltOptions } from "vanilla-tilt";
+// "use client";
+// import React, { useEffect, useRef } from "react";
+// import VanillaTilt from "vanilla-tilt";
+// import { TiltOptions } from "vanilla-tilt";
 
-interface TiltProps {
-  options: TiltOptions | undefined;
-  children: React.ReactNode;
-}
+// interface TiltProps {
+//   options: TiltOptions | undefined;
+//   children: React.ReactNode;
+// }
 
-const Tilt = ({ options, children }: TiltProps) => {
-  const tiltRef = useRef<HTMLDivElement | null>(null);
+// const Tilt = ({ options, children }: TiltProps) => {
+//   const tiltRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const tiltElement = tiltRef.current;
-    if (tiltElement) {
-      VanillaTilt.init(tiltElement, options);
-    }
+//   useEffect(() => {
+//     const tiltElement = tiltRef.current;
+//     if (tiltElement) {
+//       VanillaTilt.init(tiltElement, options);
+//     }
 
-    return () => {
-      if (tiltElement?.vanillaTilt) {
-        tiltElement.vanillaTilt.destroy();
-      }
-    };
-  }, [options]);
+//     return () => {
+//       if (tiltElement?.vanillaTilt) {
+//         tiltElement.vanillaTilt.destroy();
+//       }
+//     };
+//   }, [options]);
 
-  return (
-    <div ref={tiltRef} className="tilt-root">
-      <div className="tilt-child">{children}</div>
-    </div>
-  );
-};
+//   return (
+//     <div ref={tiltRef} className="tilt-root">
+//       <div className="tilt-child">{children}</div>
+//     </div>
+//   );
+// };
 
-export default Tilt;
+// export default Tilt;

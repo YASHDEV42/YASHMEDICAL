@@ -1,4 +1,3 @@
-import Tilt from "@/components/Tilt";
 import Image from "next/image";
 import React from "react";
 import { FaUserDoctor } from "react-icons/fa6";
@@ -34,33 +33,29 @@ const HomePage = () => {
       </section>
 
       <section className="lg:w-[80vw] w-[90vw] mx-auto h-[150vh] lg:h-[100vh] flex justify-center gap-12 lg:gap-12 lg:justify-around items-center flex-col flex-wrap lg:flex-row">
-        <Tilt options={{ scale: 1.1, max: 10 }}>
-          <div
-            className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
+        <div
+          className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
            hover:shadow-2xl"
-          >
-            <GiTechnoHeart size={100} />
-            <p>افضل الادوات الحديثة لضمان افضل خدمة</p>
-          </div>
-        </Tilt>
-        <Tilt options={{ scale: 1.1, max: 10 }}>
-          <div
-            className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
+        >
+          <GiTechnoHeart size={100} />
+          <p>افضل الادوات الحديثة لضمان افضل خدمة</p>
+        </div>
+
+        <div
+          className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
           hover:shadow-2xl"
-          >
-            <FaTooth size={100} />
-            <p>نوفر افضل تعامل وافضل الخدمات</p>
-          </div>
-        </Tilt>
-        <Tilt options={{ scale: 1.1, max: 10 }}>
-          <div
-            className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
+        >
+          <FaTooth size={100} />
+          <p>نوفر افضل تعامل وافضل الخدمات</p>
+        </div>
+
+        <div
+          className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
           hover:shadow-2xl"
-          >
-            <FaUserDoctor size={100} />
-            <p>نملك طابق طبي بتخصصات ومؤهلات مرتفعة</p>
-          </div>
-        </Tilt>
+        >
+          <FaUserDoctor size={100} />
+          <p>نملك طابق طبي بتخصصات ومؤهلات مرتفعة</p>
+        </div>
       </section>
       <section className="lg:w-[80vw] w-[90vw] h-screen mx-auto flex items-center justify-center gap-20 lg:gap-0 lg:justify-around flex-col lg:flex-row">
         <div className=" lg:w-1/4 w-1/3 my-img">
