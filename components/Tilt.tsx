@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import VanillaTiltfrom "vanilla-tilt";
+import VanillaTiltfrom from "vanilla-tilt";
 import { TiltOptions } from "vanilla-tilt";
 
 interface TiltProps {
