@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import VanillaTilt from "vanilla-tilt";
+import VanillaTilt, { HTMLVanillaTiltElement } from "vanilla-tilt";
+import { TiltOptions } from "vanilla-tilt";
 
 interface TiltProps {
-  options: unknown;
+  options: TiltOptions | undefined;
   children: React.ReactNode;
 }
 
