@@ -10,18 +10,9 @@ const initialState: RegisterFormState = {
   message: null,
 };
 
-type FormData = {
-  name: string;
-  ssn: string;
-  date_of_birth: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  phone_number: string;
-};
 const SignUp: React.FC = () => {
   const { pending } = useFormStatus();
-  const [state, formAction] = useFormState<FormData>(register, initialState);
+  const [state, formAction] = useFormState(register as any, initialState);
 
   return (
     <section className="lg:w-[80vw] w-[90vw] mx-auto flex flex-col items-center justify-center gap-2 mb-8">
