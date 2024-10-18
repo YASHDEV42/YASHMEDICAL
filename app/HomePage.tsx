@@ -57,6 +57,7 @@ const HomePage = () => {
           <p>نملك طابق طبي بتخصصات ومؤهلات مرتفعة</p>
         </div>
       </section>
+
       <section className="lg:w-[80vw] w-[90vw] h-screen mx-auto flex items-center justify-center gap-20 lg:gap-0 lg:justify-around flex-col lg:flex-row">
         <div className=" lg:w-1/4 w-1/3 my-img">
           <Image src="/basheer.jpg" alt="basheer" width={300} height={300} />
@@ -86,66 +87,112 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
       <section
         className="
-      lg:w-[80vw] w-[90vw] mx-auto h-screen flex justify-center gap-12 lg:gap-12 lg:justify-around items-center flex-col flex-wrap lg:flex-row
+      lg:w-[80vw] w-[90vw] mx-auto h-screen flex justify-center gap-16 items-center flex-col flex-wrap
       "
       >
+        <h1 className="lg:text-5xl md:text-3xl text-xl font-semibold ">
+          ✨ خدماتنا المتميزة
+        </h1>
         <Carousel>
           <CarouselContent>
-            <CarouselItem className="basis-1/3">
-              <Image
-                src="/cosmetic fillings.jpg"
-                width={300}
-                height={300}
-                alt="cosmetic fillings"
-              />
-              <h4>Cosmetic Fillings</h4>
+            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+              <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
+                <div>
+                  <Image
+                    src="/cosmetic fillings.jpg"
+                    width={200}
+                    height={200}
+                    alt="cosmetic fillings"
+                  />
+                </div>
+              </div>
+              <h4 className="text-2xl font-semibold mt-5">الحشوات التجميلية</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3">
-              <Image
-                src="/cosmetic fillings.jpg"
-                width={300}
-                height={300}
-                alt="cosmetic fillings"
-              />
-              <h4>Cosmetic Fillings</h4>
+            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+              <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
+                <Image
+                  src="/dental nerve.png"
+                  width={300}
+                  height={300}
+                  alt="dental nerve"
+                  className="
+                   object-cover
+                "
+                />
+              </div>
+              <h4 className="text-2xl font-semibold mt-5">عصب الأسنان</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3">
-              <Image
-                src="/cosmetic fillings.jpg"
-                width={300}
-                height={300}
-                alt="cosmetic fillings"
-              />
-              <h4>Cosmetic Fillings</h4>
+            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+              <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
+                <Image
+                  src="/teeth whitning.jpg"
+                  width={300}
+                  height={300}
+                  alt="teeth whitning"
+                />
+              </div>
+              <h4 className="text-2xl font-semibold mt-5">تبييض الأسنان</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3">
-              <Image
-                src="/cosmetic fillings.jpg"
-                width={300}
-                height={300}
-                alt="cosmetic fillings"
-              />
-              <h4>Cosmetic Fillings</h4>
+            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+              <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
+                <Image
+                  src="/caries.jpg"
+                  width={300}
+                  height={300}
+                  alt="caries"
+                />
+              </div>
+              <h4 className="text-2xl font-semibold mt-5">تسوس الأسنان</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3">
-              <Image
-                src="/cosmetic fillings.jpg"
-                width={300}
-                height={300}
-                alt="cosmetic fillings"
-              />
-              <h4>Cosmetic Fillings</h4>
+            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+              <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
+                <Image
+                  src="/tooth decay and its treatment.jpg"
+                  width={300}
+                  height={300}
+                  alt="tooth decay and its treatment"
+                />
+              </div>
+              <h4 className="text-2xl font-semibold mt-5">
+                تسوس الأسنان وعلاجه
+              </h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3">
-              <Image
-                src="/cosmetic fillings.jpg"
-                width={300}
-                height={300}
-                alt="cosmetic fillings"
-              />
-              <h4>Cosmetic Fillings</h4>
+            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+              <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
+                <Image
+                  src="/endodontics.jpg"
+                  width={200}
+                  height={200}
+                  alt="endodontics"
+                  className="border-2 border-slate-400"
+                />
+              </div>
+              <h4 className="text-2xl font-semibold mt-5">طب لب الأسنان</h4>
+            </CarouselItem>
+            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+              <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
+                <Image
+                  src="/dress teeth.jpeg"
+                  width={300}
+                  height={300}
+                  alt="dress teeth"
+                />
+              </div>
+              <h4 className="text-2xl font-semibold mt-5">تلبيس اسنان</h4>
+            </CarouselItem>
+            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+              <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
+                <Image
+                  src="/dental implants.jpg"
+                  width={300}
+                  height={300}
+                  alt="dental implants"
+                />
+              </div>
+              <h4 className="text-2xl font-semibold mt-5">زراعة اسنان</h4>
             </CarouselItem>
           </CarouselContent>
           <CarouselPrevious />
