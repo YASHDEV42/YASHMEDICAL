@@ -96,9 +96,9 @@ const HomePage = () => {
         <h1 className="lg:text-5xl md:text-3xl text-xl font-semibold ">
           ✨ خدماتنا المتميزة
         </h1>
-        <Carousel>
+        <Carousel className="w-[75vw]">
           <CarouselContent>
-            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+            <CarouselItem className="lg:basis-1/3 md:basis-1/2  flex flex-col justify-start items-center">
               <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
                 <div>
                   <Image
@@ -111,7 +111,7 @@ const HomePage = () => {
               </div>
               <h4 className="text-2xl font-semibold mt-5">الحشوات التجميلية</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+            <CarouselItem className="lg:basis-1/3 md:basis-1/2 flex flex-col justify-start items-center">
               <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
                 <Image
                   src="/dental nerve.png"
@@ -125,7 +125,7 @@ const HomePage = () => {
               </div>
               <h4 className="text-2xl font-semibold mt-5">عصب الأسنان</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+            <CarouselItem className="lg:basis-1/3 md:basis-1/2 flex flex-col justify-start items-center">
               <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
                 <Image
                   src="/teeth whitning.jpg"
@@ -136,7 +136,7 @@ const HomePage = () => {
               </div>
               <h4 className="text-2xl font-semibold mt-5">تبييض الأسنان</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+            <CarouselItem className="lg:basis-1/3 md:basis-1/2 flex flex-col justify-start items-center">
               <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
                 <Image
                   src="/caries.jpg"
@@ -147,7 +147,7 @@ const HomePage = () => {
               </div>
               <h4 className="text-2xl font-semibold mt-5">تسوس الأسنان</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+            <CarouselItem className="lg:basis-1/3 md:basis-1/2 flex flex-col justify-start items-center">
               <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
                 <Image
                   src="/tooth decay and its treatment.jpg"
@@ -160,7 +160,7 @@ const HomePage = () => {
                 تسوس الأسنان وعلاجه
               </h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+            <CarouselItem className="lg:basis-1/3 md:basis-1/2 flex flex-col justify-start items-center">
               <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
                 <Image
                   src="/endodontics.jpg"
@@ -172,7 +172,7 @@ const HomePage = () => {
               </div>
               <h4 className="text-2xl font-semibold mt-5">طب لب الأسنان</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+            <CarouselItem className="lg:basis-1/3 md:basis-1/2 flex flex-col justify-start items-center">
               <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
                 <Image
                   src="/dress teeth.jpeg"
@@ -183,7 +183,7 @@ const HomePage = () => {
               </div>
               <h4 className="text-2xl font-semibold mt-5">تلبيس اسنان</h4>
             </CarouselItem>
-            <CarouselItem className="basis-1/3 flex flex-col justify-start items-center">
+            <CarouselItem className="lg:basis-1/3 md:basis-1/2 flex flex-col justify-start items-center">
               <div className=" w-full h-[85%] flex justify-center items-center bg-slate-100 rounded-md">
                 <Image
                   src="/dental implants.jpg"
@@ -200,12 +200,15 @@ const HomePage = () => {
         </Carousel>
       </section>
 
-      <section className="lg:w-[80vw] w-[90vw] mx-auto h-screen flex flex-col justify-center gap-40 items-center">
+      <section
+        className="lg:w-[80vw] w-[90vw] mx-auto lg:h-screen h-[170vh] flex flex-col
+       lg:justify-center justify-start lg:gap-40 gap-14 items-center"
+      >
         <h1 className="lg:text-5xl md:text-3xl text-xl font-semibold lg:mb-7 md:mb-5 mb-3">
           طاقمنا الطبي الخبير
         </h1>
-        <div className="flex flex-col w-full justify-between items-center gap-7">
-          <div className=" flex lg:flex-row flex-col justify-around items-center w-full">
+        <div className="flex flex-col w-full h-full pb-10 justify-between items-center gap-7">
+          <div className=" h-full flex lg:flex-row flex-col justify-around items-center w-full">
             <div className=" w-80 h-44 border-2 border-slate-400 flex flex-col justify-end items-center gap-5 rounded-3xl relative pb-3">
               <Image
                 src="/doctor4.jpg"
