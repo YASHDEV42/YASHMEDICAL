@@ -2,16 +2,25 @@
 import React, { useEffect, useRef } from "react";
 import VanillaTilt from "vanilla-tilt";
 
-const Tilt = ({ options, children }: { options: any; children: any }) => {
-  const tiltRef = useRef(null);
+interface TiltProps {
+  options: unknown;
+  children: React.ReactNode;
+}
+
+const Tilt = ({ options, children }: TiltProps) => {
+  const tiltRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (tiltRef.current) {
-      VanillaTilt.init(tiltRef.current, options as any);
+    const tiltElement = tiltRef.current;
+    if (tiltElement) {
+      VanillaTilt.init(tiltElement, options);
     }
 
-    // Cleanup function to destroy the tilt effect
-    return () => tiltRef.current?.vanillaTilt.destroy();
+    return () => {
+      if (tiltElement?.vanillaTilt) {
+        tiltElement.vanillaTilt.destroy();
+      }
+    };
   }, [options]);
 
   return (

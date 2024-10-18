@@ -6,7 +6,6 @@ import { GiTechnoHeart } from "react-icons/gi";
 import { FaTooth } from "react-icons/fa";
 import { ArrowBigLeft } from "lucide-react";
 import Link from "next/link";
-import Autoplay from "embla-carousel-react";
 
 import {
   Carousel,
