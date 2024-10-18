@@ -6,7 +6,11 @@ const patientSchema = new mongoose.Schema(
     name: { type: String, required: [true, "Name is required"] },
     dateOfBirth: { type: String, required: [true, "Date of birth required"] },
     email: { type: String, required: [true, "Email is required"] },
-    password: { type: String, required: [true, "Password is required"] },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      select: false,
+    },
     address: { type: String, required: true },
     phoneNumber: { type: String, required: true },
   },

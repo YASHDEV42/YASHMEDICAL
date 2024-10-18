@@ -25,11 +25,22 @@ const providers: Provider[] = [
 
       const user = await Patient.findOne({ email }).select("+password");
 
-      if (!user || !user.password) {
+      if (!user) {
         throw new Error("Invalid credentials");
       }
 
-      const passwordsMatch = await bcrypt.compare(password, user.password);
+      if (!user.password || typeof user.password !== "string") {
+        console.log(
+          "Password field is not a string or undefined:",
+          user.password
+        );
+        throw new Error("Invalid credentials");
+      }
+
+      const passwordsMatch = await bcrypt.compare(
+        password as string,
+        user.password
+      );
 
       if (!passwordsMatch) {
         throw new Error("Invalid credentials");
