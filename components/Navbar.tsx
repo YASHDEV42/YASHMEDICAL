@@ -50,8 +50,16 @@ const Navbar = () => {
               اتصل بنا
             </Link>
           </li>
-          <li></li>
-          <li className=" border-b-2 border-slate-800"></li>
+          <li>
+            <Link
+              href="/login"
+              passHref
+              legacyBehavior
+              className="border-2 border-slate-400 p-5"
+            >
+              تسجيل الدخول
+            </Link>
+          </li>
         </ul>
       )}
       {isOpen && (
@@ -71,8 +79,16 @@ const Navbar = () => {
               اتصل بنا
             </Link>
           </li>
-          <li></li>
-          <li className=" border-b-2 border-slate-800"></li>
+          <li>
+            <Link
+              href="/login"
+              passHref
+              legacyBehavior
+              className="border-2 border-slate-400 p-5"
+            >
+              تسجيل الدخول
+            </Link>
+          </li>
         </ul>
       )}
     </nav>

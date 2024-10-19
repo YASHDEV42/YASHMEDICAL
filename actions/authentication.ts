@@ -13,17 +13,17 @@ const Signout = async () => {
 
 const login = async (prevState: any, formData: FormData) => {
   const email = formData.get("email") as string;
-  const password = formData.get("password") as string | null;
+  const password = formData.get("password") as string;
   if (!email || !password) {
-    return { message: "Please fill in all fields" };
+    return { message: "قم بتعبئة جميع البيانات من فضلك" };
   }
   const user = await Patient.findOne({ email });
   if (!user) {
-    return { message: "User not found" };
+    return { message: "لم نسطتع ايجاد مستخدم مرتبط بالايميل المدخل" };
   }
   const valid = user ? await bcrypt.compare(password, user.password) : false;
   if (!valid) {
-    return { message: "Password is incorrect" };
+    return { message: "كلمة المرور غير صحيحة" };
   }
 
   try {
@@ -48,22 +48,22 @@ const register = async (prevState: any, formData: FormData) => {
   const dateOfBirth = formData.get("date_of_birth") as string;
 
   if (!name || !email || !password || !ssn || !dateOfBirth) {
-    return { message: "Please fill in all fields" };
+    return { message: "قم بتعبئة جميع البيانات من فضلك" };
   }
 
   if (password.length < 6) {
-    return { message: "Password must be at least 6 characters" };
+    return { message: "استخدم كلمة مرور تحتوي على اكثر من 6 خانات" };
   }
 
   if (password !== formData.get("confirmPassword")) {
-    return { message: "Passwords do not match" };
+    return { message: "كلمات المرور غير متطابقة" };
   }
 
   await connectDB();
 
   const existingUser = await Patient.findOne({ email });
   if (existingUser) {
-    return { message: "User already exists" };
+    return { message: "المستخدم بالفعل موجود" };
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   await Patient.create({

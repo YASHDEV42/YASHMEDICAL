@@ -1,17 +1,18 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-// import { Login } from "@/actions/User";
-// import { useFormState, useFormStatus } from "react-dom";
-// import toast from "react-hot-toast";
-// const initialState = {
-//   message: null,
-// };
+import { login } from "@/actions/authentication";
+import { useFormState, useFormStatus } from "react-dom";
+type RegisterFormState = {
+  message: string | null;
+};
+const initialState: RegisterFormState = {
+  message: null,
+};
 const LoginPage = () => {
-  //   const { pending } = useFormStatus();
-  //   console.log(pending);
+  const { pending } = useFormStatus();
 
-  //   const [state, formAction] = useFormState(Login as any, initialState);
+  const [state, formAction] = useFormState(login, initialState);
 
   return (
     <section
@@ -25,7 +26,7 @@ const LoginPage = () => {
       </div>
       <form
         className="flex flex-col items-center justify-center w-full"
-        //   action={formAction}
+        action={formAction}
       >
         <div className="w-full flex flex-col items-center justify-center">
           <label htmlFor="email">: الايميل</label>
@@ -48,11 +49,11 @@ const LoginPage = () => {
             id="password"
           />
         </div>
-        {/* {state.message && (
+        {state.message && (
           <p className="text-red-700 text-lg md:text-xl lg:text-2xl font-bold">
             {state.message}
           </p>
-        )} */}
+        )}
         <div className="flex flex-row items-center justify-center h-full w-full mt-4 gap-4">
           <Link href="/register" className=" text-blue-400 hover:underline">
             انشاء حساب جديد
@@ -62,8 +63,7 @@ const LoginPage = () => {
             type="submit"
             className="flex flex-row items-center justify-center gap-2 w-28 h-10 border-2 border-slate-400 rounded-md"
           >
-            {/* {pending ? "Signing Up..." : "Sign Up"} */}
-            تسجيل الدخول
+            {pending ? " ...يتم تسجيل الدخول" : "تسجيل الدخول"}
           </button>
         </div>
       </form>

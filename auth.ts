@@ -5,6 +5,7 @@ import Patient from "./models/Patient";
 import connectDB from "./lib/db";
 import { JWT } from "next-auth/jwt";
 import type { Provider } from "next-auth/providers";
+import { PatientType } from "./types/Patient";
 
 const providers: Provider[] = [
   CredentialsProvider({
@@ -74,10 +75,7 @@ export const authConfig = {
       return session;
     },
 
-    async jwt({ token, user }: { token: JWT; user: any }) {
-      if (user) {
-        token.role = user.role;
-      }
+    async jwt({ token }: { token: JWT }) {
       return token;
     },
 
