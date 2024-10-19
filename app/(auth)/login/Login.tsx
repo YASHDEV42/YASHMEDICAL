@@ -49,7 +49,7 @@ const LoginPage = () => {
             id="password"
           />
         </div>
-        {state.message && (
+        {state?.message && (
           <p className="text-red-700 text-lg md:text-xl lg:text-2xl font-bold">
             {state.message}
           </p>
