@@ -1,4 +1,4 @@
-import NextAuth, { Session } from "next-auth";
+import NextAuth, { Session, User as UserType } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs"; // Fixed import typo
 import User from "./models/User";
@@ -65,11 +65,11 @@ export const authConfig = {
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, token }: { session: Session; token: JWT }) {
+    async session({ session, token }: { session: any; token: JWT }) {
       if (token?.sub && token?.role) {
         if (session.user) {
           session.user.id = token.sub;
-          session.user.role = token.role;
+          session.user.role = token.role as string;
         }
       }
 
@@ -78,7 +78,7 @@ export const authConfig = {
 
     async jwt({ token, user }: { token: JWT; user: PatientType }) {
       if (user) {
-        token.role = user.role;
+        token.role = user.role as string;
       }
       return token;
     },
