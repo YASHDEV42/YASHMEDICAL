@@ -78,7 +78,7 @@ export const authConfig = {
 
     async jwt({ token, user }: { token: JWT; user: PatientType }) {
       if (user) {
-        token.role = user.role as string;
+        token.role = user.role;
       }
       return token;
     },
