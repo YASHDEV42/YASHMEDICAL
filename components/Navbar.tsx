@@ -1,9 +1,12 @@
 "use client";
+import { PatientType } from "@/types/User";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({ user }: { user: PatientType }) => {
+  console.log(user);
+
   const [showHamburger, setShowHamburger] = useState(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -50,16 +53,42 @@ const Navbar = () => {
               اتصل بنا
             </Link>
           </li>
-          <li>
-            <Link
-              href="/login"
-              passHref
-              legacyBehavior
-              className="border-2 border-slate-400 p-5"
-            >
-              تسجيل الدخول
-            </Link>
-          </li>
+          {user ? (
+            <>
+              {user.role === "patient" && (
+                <li>
+                  <Link href="/patient" passHref legacyBehavior>
+                    حسابي
+                  </Link>
+                </li>
+              )}
+              {user.role === "doctor" && (
+                <li>
+                  <Link href="/doctor" passHref legacyBehavior>
+                    حسابي
+                  </Link>
+                </li>
+              )}
+              {user.role === "admin" && (
+                <li>
+                  <Link href="/admin" passHref legacyBehavior>
+                    لوحة التحكم
+                  </Link>
+                </li>
+              )}
+            </>
+          ) : (
+            <li>
+              <Link
+                href="/login"
+                passHref
+                legacyBehavior
+                className="border-2 border-slate-400 p-5"
+              >
+                تسجيل الدخول
+              </Link>
+            </li>
+          )}
         </ul>
       )}
       {isOpen && (
@@ -79,16 +108,37 @@ const Navbar = () => {
               اتصل بنا
             </Link>
           </li>
-          <li>
-            <Link
-              href="/login"
-              passHref
-              legacyBehavior
-              className="border-2 border-slate-400 p-5"
-            >
-              تسجيل الدخول
-            </Link>
-          </li>
+          {user ? (
+            <>
+              {user.role === "patient" && (
+                <li>
+                  <Link href="/patient" passHref legacyBehavior>
+                    حسابي
+                  </Link>
+                </li>
+              )}
+              {user.role === "doctor" && (
+                <li>
+                  <Link href="/doctor" passHref legacyBehavior>
+                    حسابي
+                  </Link>
+                </li>
+              )}
+              {user.role === "admin" && (
+                <li>
+                  <Link href="/admin" passHref legacyBehavior>
+                    لوحة التحكم
+                  </Link>
+                </li>
+              )}
+            </>
+          ) : (
+            <li>
+              <Link href="/login" passHref onClick={() => setIsOpen(!isOpen)}>
+                تسجيل الدخول
+              </Link>
+            </li>
+          )}
         </ul>
       )}
     </nav>

@@ -1,6 +1,5 @@
 "use server";
-
-import Patient from "@/models/Patient";
+import User from "@/models/User";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 import { signIn, signOut } from "@/auth";
@@ -11,13 +10,16 @@ const Signout = async () => {
   await signOut();
 };
 
-const login = async (prevState: any, formData: FormData) => {
+const login = async (prevState: unknown, formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  console.log(email, password);
+
   if (!email || !password) {
     return { message: "قم بتعبئة جميع البيانات من فضلك" };
   }
-  const user = await Patient.findOne({ email });
+  const user = await User.findOne({ email }).select("+password");
+  console.log(user);
   if (!user) {
     return { message: "لم نسطتع ايجاد مستخدم مرتبط بالايميل المدخل" };
   }
@@ -33,14 +35,13 @@ const login = async (prevState: any, formData: FormData) => {
       email,
       password,
     });
-
-    redirect("/");
   } catch (err) {
     console.log(err);
   }
+  redirect("/");
 };
 
-const register = async (prevState: any, formData: FormData) => {
+const register = async (prevState: unknown, formData: FormData) => {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -61,12 +62,12 @@ const register = async (prevState: any, formData: FormData) => {
 
   await connectDB();
 
-  const existingUser = await Patient.findOne({ email });
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     return { message: "المستخدم بالفعل موجود" };
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  await Patient.create({
+  await User.create({
     name,
     email,
     password: hashedPassword,

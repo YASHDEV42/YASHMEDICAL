@@ -1,14 +1,14 @@
 import NextAuth, { Session } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs"; // Fixed import typo
-import Patient from "./models/Patient";
+import User from "./models/User";
 import connectDB from "./lib/db";
 import { JWT } from "next-auth/jwt";
 import type { Provider } from "next-auth/providers";
-import { PatientType } from "./types/Patient";
+import { PatientType } from "./types/User";
 
 const providers: Provider[] = [
-  CredentialsProvider({
+  Credentials({
     name: "Credentials",
     credentials: {
       email: { label: "Email", type: "email" },
@@ -24,7 +24,7 @@ const providers: Provider[] = [
 
       await connectDB();
 
-      const user = await Patient.findOne({ email }).select("+password");
+      const user = await User.findOne({ email }).select("+password");
 
       if (!user) {
         throw new Error("Invalid credentials");
@@ -68,14 +68,17 @@ export const authConfig = {
       if (token?.sub && token?.role) {
         if (session.user) {
           session.user.id = token.sub;
-        } else {
-          console.error("session.user is undefined");
+          session.user.role = token.role;
         }
       }
+
       return session;
     },
 
-    async jwt({ token }: { token: JWT }) {
+    async jwt({ token, user }: { token: JWT; user: PatientType }) {
+      if (user) {
+        token.role = user.role;
+      }
       return token;
     },
 

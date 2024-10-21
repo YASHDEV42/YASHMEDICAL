@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Rubik } from "next/font/google";
-import Navbar from "@/components/Navbar";
+import NavbarWrapper from "@/components/NavbarWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +19,7 @@ export default async function RootLayout({
     <html lang="ar">
       <body>
         <div className={rubik.className}>
-          <Navbar />
+          <NavbarWrapper />
           {children}
         </div>
       </body>
