@@ -6,6 +6,8 @@ import Patient from "./Patient";
 
 const page = async () => {
   const session = await auth();
+  console.log("🚀 ~ file: page.tsx ~ line 5 ~ page ~ session", session);
+
   const { email } = session?.user as PatientType;
   const sampleData = await User.findOne({ email }).select("+password");
   const user = JSON.parse(JSON.stringify(sampleData));

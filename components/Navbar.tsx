@@ -71,7 +71,11 @@ const Navbar = ({ user }: { user: PatientType }) => {
               )}
               {user.role === "admin" && (
                 <li>
-                  <Link href="/admin" passHref legacyBehavior>
+                  <Link
+                    href="/admin"
+                    passHref
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
                     لوحة التحكم
                   </Link>
                 </li>
@@ -112,21 +116,33 @@ const Navbar = ({ user }: { user: PatientType }) => {
             <>
               {user.role === "patient" && (
                 <li>
-                  <Link href="/patient" passHref legacyBehavior>
+                  <Link
+                    href="/patient"
+                    passHref
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
                     حسابي
                   </Link>
                 </li>
               )}
               {user.role === "doctor" && (
                 <li>
-                  <Link href="/doctor" passHref legacyBehavior>
+                  <Link
+                    href="/doctor"
+                    passHref
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
                     حسابي
                   </Link>
                 </li>
               )}
               {user.role === "admin" && (
                 <li>
-                  <Link href="/admin" passHref legacyBehavior>
+                  <Link
+                    href="/admin"
+                    passHref
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
                     لوحة التحكم
                   </Link>
                 </li>

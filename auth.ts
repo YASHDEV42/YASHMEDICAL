@@ -1,12 +1,22 @@
-import NextAuth, { Session, User as UserType } from "next-auth";
+import NextAuth from "next-auth";
+import { Account } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs"; // Fixed import typo
 import User from "./models/User";
 import connectDB from "./lib/db";
 import { JWT } from "next-auth/jwt";
 import type { Provider } from "next-auth/providers";
-import { PatientType } from "./types/User";
-
+export interface DefaultSession {
+  user?: User;
+  expires: string;
+}
+export interface User {
+  id?: string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  role?: string | null;
+}
 const providers: Provider[] = [
   Credentials({
     name: "Credentials",
@@ -65,7 +75,7 @@ export const authConfig = {
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, token }: { session: any; token: JWT }) {
+    async session({ session, token }: { session: DefaultSession; token: JWT }) {
       if (token?.sub && token?.role) {
         if (session.user) {
           session.user.id = token.sub;
@@ -76,14 +86,14 @@ export const authConfig = {
       return session;
     },
 
-    async jwt({ token, user }: { token: JWT; user: PatientType }) {
+    async jwt({ token, user }: { token: JWT; user: User }) {
       if (user) {
         token.role = user.role;
       }
       return token;
     },
 
-    signIn: async ({ account }: { account: any }) => {
+    signIn: async ({ account }: { account: Account | null }) => {
       if (account?.provider === "credentials") {
         return true;
       } else {
@@ -93,4 +103,4 @@ export const authConfig = {
   },
 };
 
-export const { handlers, auth, signIn, signOut } = NextAuth(authConfig as any);
+export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);

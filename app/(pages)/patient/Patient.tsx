@@ -13,28 +13,44 @@ const Patient = (props: Props) => {
   );
 
   return (
-    <section className="lg:w-[80vw] w-[90vw] h-screen flex flex-col justify-center items-center">
+    <section className="lg:w-[80vw] w-[90vw] h-screen flex flex-col justify-start items-center">
       <h1
-        className="
+        className="mt-28
       lg:text-6xl md:text-4xl text-2xl font-semibold text-center
       "
       >
         مرحباً {user.name}
       </h1>
-      <p>هذه الصفحة مخصصة للمرضى</p>
-      <div>
-        <button onClick={() => setSubPage("settings")}>اعدادات الحساب</button>
-        <button onClick={() => setSubPage("appointments")}>الحجوزات</button>
+      <div className="flex flex-row justify-center items-center gap-5 mt-7 mb-3">
+        <button
+          onClick={() => setSubPage("settings")}
+          className={subPage === "settings" ? "underline" : ""}
+        >
+          البيانات الشخصية
+        </button>
+        <button
+          onClick={() => setSubPage("appointments")}
+          className={subPage === "appointments" ? "underline" : ""}
+        >
+          الحجوزات
+        </button>
       </div>
+
       {subPage === "settings" ? (
         <div>
-          <h2>اعدادات الحساب</h2>
           <p>الاسم: {user.name}</p>
-          <p> {user.email}: البريد الالكتروني</p>
+          <p> {user.email} : البريد الالكتروني</p>
+          <p> {user.phoneNumber} : رقم الهاتف</p>
+          <p> رقم الهوية : {user.ssn}</p>
+          <p>
+            {" "}
+            العمر:{" "}
+            {new Date().getFullYear() -
+              new Date(user.dateOfBirth).getFullYear()}
+          </p>
         </div>
       ) : (
         <div>
-          <h2>الحجوزات</h2>
           <p>ليس لديك حجوزات حالياً</p>
         </div>
       )}
