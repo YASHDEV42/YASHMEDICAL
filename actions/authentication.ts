@@ -5,9 +5,13 @@ import bcrypt from "bcryptjs";
 import { signIn, signOut } from "@/auth";
 import connectDB from "@/lib/db";
 
-const Signout = async () => {
-  "use server";
-  await signOut();
+const SignOut = async () => {
+  try {
+    await signOut();
+  } catch (err) {
+    console.log(err);
+  }
+  redirect("/");
 };
 
 const login = async (prevState: unknown, formData: FormData) => {
@@ -47,6 +51,7 @@ const register = async (prevState: unknown, formData: FormData) => {
   const password = formData.get("password") as string;
   const ssn = formData.get("ssn") as string;
   const dateOfBirth = formData.get("date_of_birth") as string;
+  console.log(name, email, password, ssn, dateOfBirth);
 
   if (!name || !email || !password || !ssn || !dateOfBirth) {
     return { message: "قم بتعبئة جميع البيانات من فضلك" };
@@ -78,4 +83,4 @@ const register = async (prevState: unknown, formData: FormData) => {
   redirect("/login");
 };
 
-export { register, login, Signout };
+export { register, login, SignOut };

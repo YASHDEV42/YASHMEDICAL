@@ -3,6 +3,7 @@ import { PatientType } from "@/types/User";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import SignOutBtn from "./buttons/SignOutBtn";
 
 const Navbar = ({ user }: { user: PatientType }) => {
   console.log(user);
@@ -56,29 +57,40 @@ const Navbar = ({ user }: { user: PatientType }) => {
           {user ? (
             <>
               {user.role === "patient" && (
-                <li>
-                  <Link href="/patient" passHref legacyBehavior>
-                    حسابي
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link href="/patient" passHref legacyBehavior>
+                      حسابي
+                    </Link>
+                  </li>
+                  <li>
+                    <SignOutBtn />
+                  </li>
+                </>
               )}
               {user.role === "doctor" && (
-                <li>
-                  <Link href="/doctor" passHref legacyBehavior>
-                    حسابي
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link href="/doctor" passHref legacyBehavior>
+                      حسابي
+                    </Link>
+                  </li>
+                  <li>
+                    <SignOutBtn />
+                  </li>
+                </>
               )}
               {user.role === "admin" && (
-                <li>
-                  <Link
-                    href="/admin"
-                    passHref
-                    onClick={() => setIsOpen(!isOpen)}
-                  >
-                    لوحة التحكم
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link href="/admin" passHref legacyBehavior>
+                      لوحة التحكم
+                    </Link>
+                  </li>
+                  <li>
+                    <SignOutBtn />
+                  </li>
+                </>
               )}
             </>
           ) : (
@@ -115,37 +127,54 @@ const Navbar = ({ user }: { user: PatientType }) => {
           {user ? (
             <>
               {user.role === "patient" && (
-                <li>
-                  <Link
-                    href="/patient"
-                    passHref
-                    onClick={() => setIsOpen(!isOpen)}
-                  >
-                    حسابي
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link
+                      href="/patient"
+                      passHref
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
+                      حسابي
+                    </Link>
+                  </li>
+                  <li onClick={() => setIsOpen(!isOpen)}>
+                    <SignOutBtn />
+                  </li>
+                </>
               )}
               {user.role === "doctor" && (
-                <li>
-                  <Link
-                    href="/doctor"
-                    passHref
-                    onClick={() => setIsOpen(!isOpen)}
-                  >
-                    حسابي
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link
+                      href="/doctor"
+                      passHref
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
+                      حسابي
+                    </Link>
+                  </li>
+
+                  <li onClick={() => setIsOpen(!isOpen)}>
+                    <SignOutBtn />
+                  </li>
+                </>
               )}
               {user.role === "admin" && (
-                <li>
-                  <Link
-                    href="/admin"
-                    passHref
-                    onClick={() => setIsOpen(!isOpen)}
-                  >
-                    لوحة التحكم
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link
+                      href="/admin"
+                      passHref
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
+                      لوحة التحكم
+                    </Link>
+                  </li>
+
+                  <li onClick={() => setIsOpen(!isOpen)}>
+                    <SignOutBtn />
+                  </li>
+                </>
               )}
             </>
           ) : (

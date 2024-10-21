@@ -47,6 +47,7 @@ const SignUp: React.FC = () => {
             type="text"
             name="ssn"
             id="ssn"
+            maxLength={11}
           />
         </div>
         <div className="w-full flex items-center justify-center flex-col">
@@ -56,7 +57,7 @@ const SignUp: React.FC = () => {
           <input
             className="my-input"
             placeholder="day/month/year"
-            type="text"
+            type="date"
             name="date_of_birth"
             id="date_of_birth"
           />

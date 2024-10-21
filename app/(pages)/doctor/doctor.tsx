@@ -1,21 +1,15 @@
 "use client";
 import { PatientType } from "@/types/User";
-import React from "react";
+import React, { useState } from "react";
 
-type Props = {
-  user: PatientType;
-};
-
-const Patient = (props: Props) => {
-  const user = props.user;
-  const [subPage, setSubPage] = React.useState<"settings" | "appointments">(
-    "appointments"
-  );
-
+const Doctor = ({ user }: { user: PatientType }) => {
+  const [subPage, setSubPage] = useState<
+    "patients" | "appointments" | "settings"
+  >("appointments");
   return (
     <section className="lg:w-[80vw] w-[90vw] mx-auto h-screen flex flex-col justify-start items-center">
       <h1 className="mt-28 lg:text-6xl md:text-4xl text-2xl font-semibold text-center">
-        مرحباً {user.name}
+        مرحبا د.{user.name}
       </h1>
       <div className="flex flex-row justify-center items-center gap-5 mt-16 mb-7">
         <button
@@ -25,14 +19,24 @@ const Patient = (props: Props) => {
           البيانات الشخصية
         </button>
         <button
+          onClick={() => setSubPage("patients")}
+          className={subPage === "patients" ? "underline" : ""}
+        >
+          المرضى
+        </button>
+        <button
           onClick={() => setSubPage("appointments")}
           className={subPage === "appointments" ? "underline" : ""}
         >
           الحجوزات
         </button>
       </div>
-
-      {subPage === "settings" ? (
+      {subPage === "patients" && (
+        <div>
+          <p>المرضى</p>
+        </div>
+      )}
+      {subPage === "settings" && (
         <div>
           <p>الاسم: {user.name}</p>
           <p> {user.email} : البريد الالكتروني</p>
@@ -45,7 +49,8 @@ const Patient = (props: Props) => {
               new Date(user.dateOfBirth).getFullYear()}
           </p>
         </div>
-      ) : (
+      )}
+      {subPage === "appointments" && (
         <div>
           <p>ليس لديك حجوزات حالياً</p>
         </div>
@@ -54,4 +59,4 @@ const Patient = (props: Props) => {
   );
 };
 
-export default Patient;
+export default Doctor;
