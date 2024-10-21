@@ -51,6 +51,7 @@ const providers: Provider[] = [
         name: user.name,
         email: user.email,
         id: user._id.toString(),
+        role: user.role,
       };
 
       return userData;
