@@ -24,6 +24,7 @@ const providers: Provider[] = [
       email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" },
     },
+
     authorize: async (credentials) => {
       const email = credentials?.email;
       const password = credentials?.password;

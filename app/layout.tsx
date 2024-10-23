@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Rubik } from "next/font/google";
 import NavbarWrapper from "@/components/NavbarWrapper";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,6 +23,7 @@ export default async function RootLayout({
           <NavbarWrapper />
           {children}
         </div>
+        <Toaster />
       </body>
     </html>
   );

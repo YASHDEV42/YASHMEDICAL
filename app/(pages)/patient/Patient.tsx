@@ -1,5 +1,6 @@
 "use client";
 import { PatientType } from "@/types/User";
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -47,7 +48,13 @@ const Patient = (props: Props) => {
         </div>
       ) : (
         <div>
-          <p>ليس لديك حجوزات حالياً</p>
+          <p className="mb-5">ليس لديك حجوزات حالياً</p>
+          <Link
+            href="/patient/book-appointment"
+            className="p-2 border-2 border-slate-400"
+          >
+            احجز موعدك
+          </Link>
         </div>
       )}
     </section>
