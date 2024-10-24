@@ -38,7 +38,7 @@ const Navbar = ({ user }: { user: PatientType }) => {
           {isOpen ? <X /> : <Menu />}
         </button>
       ) : (
-        <ul className="w-1/3 text-lg font-semibold flex justify-between items-end">
+        <ul className="w-[40%] text-lg font-semibold flex justify-between items-end">
           <li>
             <Link passHref legacyBehavior href="/">
               الرئيسية

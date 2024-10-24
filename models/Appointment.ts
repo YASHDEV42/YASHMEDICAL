@@ -7,6 +7,7 @@ const appointmentSchema = new mongoose.Schema(
     appointmentDate: { type: String, required: true },
     status: { type: String, required: true },
     reason: { type: String, required: true },
+    isNew: { type: Boolean, default: true },
   },
   {
     timestamps: true,
