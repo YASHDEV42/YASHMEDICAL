@@ -4,10 +4,23 @@ const appointmentSchema = new mongoose.Schema(
   {
     patient: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     dentist: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    appointmentDate: { type: String, required: true },
-    status: { type: String, required: true },
-    reason: { type: String, required: true },
-    isNew: { type: Boolean, default: true },
+    date: { type: String, required: true },
+    hour: { type: String, required: true },
+    status: {
+      type: String,
+      enum: [
+        "مجدولة",
+        "مؤكدة",
+        "مكتملة",
+        "ملغاة",
+        "معاد جدولتها",
+        "لم يحضر",
+        "قيد التنفيذ",
+      ],
+      required: true,
+      default: "مجدولة",
+    },
+    isNew: { type: Boolean, required: true, default: true },
   },
   {
     timestamps: true,

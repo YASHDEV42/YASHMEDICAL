@@ -2,7 +2,6 @@
 import { bookAppointment } from "@/actions/appointment";
 import { Calendar } from "@/components/ui/calendar";
 import { PatientType } from "@/types/User";
-import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -19,10 +18,7 @@ const BookAppointment = ({
   const [date, setDate] = useState<string | null>(null);
   const [hour, setHour] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  console.log("selected doctor", doctor);
-  console.log("selected date", date);
-  console.log("patient", patient);
-  console.log("doctors", doctors);
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -40,11 +36,14 @@ const BookAppointment = ({
     e.preventDefault();
     toast.success("تم تأكيد البيانات بنجاح");
     const toastLoading = toast.loading("جاري حجز الموعد");
+    console.log(patient);
+
+    if (!doctor || !patient || !date || !hour) return;
     await bookAppointment(null, {
-      doctor,
-      patient,
-      date,
-      hour,
+      doctor: doctor as PatientType,
+      patient: patient as PatientType,
+      date: date as string,
+      hour: hour as string,
     });
     setLoading(true);
     setTimeout(() => {
@@ -65,7 +64,7 @@ const BookAppointment = ({
   };
 
   return (
-    <section className="min-h-screen lg:w-[80vw] w-[90vw] mx-auto flex flex-col gap-10 justify-center items-center py-20">
+    <section className="min-h-screen lg:w-[80vw] w-[90vw] mx-auto flex flex-col gap-10 justify-center items-center py-20 ">
       <div className="w-full flex flex-col items-center justify-center gap-4">
         {stepsCounter === 0 && (
           <div className="flex flex-col justify-center items-center">
@@ -144,16 +143,8 @@ const BookAppointment = ({
             <Calendar
               mode="single"
               disabled={(date) => date < new Date()}
-              selected={date ? new Date(date) : new Date()}
-              onSelect={(date) =>
-                setDate(
-                  date?.getFullYear() +
-                    "-" +
-                    date?.getMonth() +
-                    "-" +
-                    date?.getDate()
-                )
-              }
+              selected={date}
+              onSelect={setDate}
             />
             <button
               className="px-8 py-1 border-2 border-slate-400 font-semibold mt-5"
@@ -181,6 +172,7 @@ const BookAppointment = ({
             </button>
           </div>
         )}
+
         {stepsCounter === 3 && (
           <div className="flex flex-col justify-center items-center gap-4">
             <h2>اختر الساعة</h2>
@@ -257,6 +249,7 @@ const BookAppointment = ({
             </div>
           </div>
         )}
+
         {stepsCounter === 4 && (
           <div className="w-full flex flex-col items-center justify-center">
             <h2 className="lg:text-3xl md:text-xl text-lg font-semibold">
