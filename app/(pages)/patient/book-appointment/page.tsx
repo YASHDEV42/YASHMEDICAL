@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { PatientType } from "@/types/User";
 import { Session } from "next-auth";
 import User from "@/models/User";
+import Appointment from "@/models/Appointment";
+import { AppointmentType } from "@/types/Appointment";
 interface UserInterface {
   email: string;
   name: string;
@@ -19,16 +21,27 @@ const page = async () => {
   if (!user) {
     redirect("/login");
   }
-  const data: PatientType | null = await User.findOne({
-    email: user.email,
-  });
+  const data: PatientType | null = await User.findOne({ email: user.email });
+  const patientDetails = JSON.parse(JSON.stringify(data));
+
   const doctorsData = await User.find({ role: "doctor" });
   const doctors: PatientType[] | null = JSON.parse(JSON.stringify(doctorsData));
-  const patientDetails = JSON.parse(JSON.stringify(data));
+
+  const appointmentsData = await Appointment.find();
+  const appointments: AppointmentType[] | null = JSON.parse(
+    JSON.stringify(appointmentsData)
+  );
+  console.log("appointments", appointments);
+
   return (
     patientDetails &&
-    doctors && (
-      <BookAppointment patientDetails={patientDetails} doctors={doctors} />
+    doctors &&
+    appointments && (
+      <BookAppointment
+        patientDetails={patientDetails}
+        doctors={doctors}
+        appointments={appointments}
+      />
     )
   );
 };

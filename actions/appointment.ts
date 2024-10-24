@@ -7,7 +7,7 @@ import { PatientType } from "@/types/User";
 interface FormData {
   doctor: PatientType;
   patient: PatientType;
-  date: string; // ISO string for date
+  date: Date; // ISO string for date
   hour: string; // Time as a string
 }
 
@@ -23,7 +23,7 @@ function generateRandomPassword(length = 8) {
 
   return password;
 }
-const formatDate = (isoDate: string) => {
+const formatDate = (isoDate: Date) => {
   const date = new Date(isoDate);
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed

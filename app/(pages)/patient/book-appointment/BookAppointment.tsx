@@ -1,6 +1,7 @@
 "use client";
 import { bookAppointment } from "@/actions/appointment";
 import { Calendar } from "@/components/ui/calendar";
+import { AppointmentType } from "@/types/Appointment";
 import { PatientType } from "@/types/User";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -8,41 +9,29 @@ import toast from "react-hot-toast";
 const BookAppointment = ({
   patientDetails,
   doctors,
+  appointments,
 }: {
   patientDetails: PatientType;
   doctors: PatientType[];
+  appointments: AppointmentType[];
 }) => {
-  const [patient, setPatient] = useState<PatientType | null>(patientDetails);
   const [doctor, setDoctor] = useState<PatientType | null>(doctors[0] || null);
   const [stepsCounter, setStepsCounter] = useState(0);
-  const [date, setDate] = useState<string | null>(null);
+  const [date, setDate] = useState<Date | undefined>(undefined);
   const [hour, setHour] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setPatient((prev) => {
-      if (!prev) return patientDetails;
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     toast.success("تم تأكيد البيانات بنجاح");
     const toastLoading = toast.loading("جاري حجز الموعد");
-    console.log(patient);
+    console.log(patientDetails);
 
-    if (!doctor || !patient || !date || !hour) return;
+    if (!doctor || !patientDetails || !date || !hour) return;
     await bookAppointment(null, {
       doctor: doctor as PatientType,
-      patient: patient as PatientType,
-      date: date as string,
+      patient: patientDetails as PatientType,
+      date: date as Date,
       hour: hour as string,
     });
     setLoading(true);
@@ -100,10 +89,15 @@ const BookAppointment = ({
             <h2 className="lg:text-4xl text-2xl font-semibold mb-5">
               اختر الطبيب
             </h2>
-            <select name="" id="" onChange={handleDoctorChange}>
+            <select
+              name=""
+              id=""
+              onChange={handleDoctorChange}
+              className="text-right"
+            >
               {doctors &&
                 doctors.map((doctor: PatientType | null) => (
-                  <option key={doctor?.id} value={doctor?.name}>
+                  <option key={doctor?._id} value={doctor?.name}>
                     {doctor?.name}
                   </option>
                 ))}
@@ -177,170 +171,101 @@ const BookAppointment = ({
           <div className="flex flex-col justify-center items-center gap-4">
             <h2>اختر الساعة</h2>
             <div className="flex flex-row justify-center items-center gap-4">
-              <button
-                className="px-8 py-1 border-2 border-slate-400 font-semibold"
-                disabled={loading}
-                onClick={() => {
-                  toast.success("تم اختيار الساعة");
-                  setHour("10:00");
-                  setLoading(true);
-                  setTimeout(() => {
-                    toast.dismiss();
-                    setStepsCounter(4);
-                    toast("قم بادخال بيانات المريض", {
-                      icon: "👋",
-                      style: {
-                        borderRadius: "10px",
-                        background: "#fff",
-                        color: "#000",
-                      },
-                      duration: 7000,
-                    });
-                  }, 2000);
-                  setLoading(false);
-                }}
-              >
-                10:00
-              </button>
-              <button
-                className="px-8 py-1 border-2 border-slate-400 font-semibold"
-                onClick={() => {
-                  toast.success("تم اختيار الساعة");
-                  setHour("11:00");
-                  setTimeout(() => {
-                    toast.dismiss();
-                    setStepsCounter(4);
-                    toast("قم بادخال بيانات المريض", {
-                      icon: "👋",
-                      style: {
-                        borderRadius: "10px",
-                        background: "#fff",
-                        color: "#000",
-                      },
-                      duration: 7000,
-                    });
-                  }, 2000);
-                }}
-              >
-                11:00
-              </button>
-              <button
-                className="px-8 py-1 border-2 border-slate-400 font-semibold"
-                onClick={() => {
-                  toast.success("تم اختيار الساعة");
-                  setHour("12:00");
-                  setTimeout(() => {
-                    toast.dismiss();
-                    setStepsCounter(4);
-                    toast("قم بادخال بيانات المريض", {
-                      icon: "👋",
-                      style: {
-                        borderRadius: "10px",
-                        background: "#fff",
-                        color: "#000",
-                      },
-                      duration: 7000,
-                    });
-                  }, 2000);
-                }}
-              >
-                12:00
-              </button>
+              {["10:00", "11:00", "12:00"].map((time) => {
+                // Normalize the selected date to "DD/MM/YYYY" format to match your stored appointment format
+                const selectedDate = date?.toLocaleDateString("en-GB"); // This formats as 'DD/MM/YYYY'
+                console.log("Selected Date:", selectedDate);
+
+                // Check if the appointment hour and doctor match
+                const isBooked = appointments.some((appointment) => {
+                  // Normalize hour comparison (handles both '10:00' and full Date string formats)
+                  const appointmentHour = appointment.hour.includes("GMT") // If it's a full date string, extract time
+                    ? new Date(appointment.hour).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    : appointment.hour;
+
+                  // Check if the doctor ID matches the currently selected doctor
+                  const isSameDoctor = appointment.dentist === doctor?._id;
+
+                  // Log for debugging
+                  console.log(
+                    "Appointment Date:",
+                    appointment.date,
+                    "Hour:",
+                    appointmentHour,
+                    "Doctor ID:",
+                    appointment.dentist,
+                    "Selected Doctor ID:",
+                    doctor?._id
+                  );
+
+                  return (
+                    appointment.date === selectedDate &&
+                    appointmentHour === time &&
+                    isSameDoctor
+                  );
+                });
+
+                return (
+                  <button
+                    key={time}
+                    className="px-8 py-1 border-2 border-slate-400 font-semibold"
+                    disabled={isBooked || loading}
+                    onClick={() => {
+                      if (!isBooked) {
+                        toast.success("تم اختيار الساعة");
+                        setHour(time);
+                        setLoading(true);
+                        setTimeout(() => {
+                          toast.dismiss();
+                          setStepsCounter(4);
+                          toast("تاكيد الحجز", {
+                            icon: "✅",
+                            style: {
+                              borderRadius: "10px",
+                              background: "#fff",
+                              color: "#000",
+                            },
+                            duration: 7000,
+                          });
+                        }, 2000);
+                        setLoading(false);
+                      }
+                    }}
+                  >
+                    {time} {isBooked ? "(محجوزة)" : ""}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
-
         {stepsCounter === 4 && (
           <div className="w-full flex flex-col items-center justify-center">
-            <h2 className="lg:text-3xl md:text-xl text-lg font-semibold">
-              بيانات المريض
+            <h2 className="lg:text-6xl md:text-4xl text-2xl font-semibold">
+              تاكيد الحجز
             </h2>
-            <form className="w-full" onSubmit={handleSubmit}>
-              <div className="flex flex-col items-center justify-center">
-                <label htmlFor="name">الاسم</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={patient?.name}
-                  onChange={handleInputChange}
-                  className="my-input"
-                />
-              </div>
-
-              <div className="flex flex-col items-center justify-center">
-                <label htmlFor="email">البريد الالكتروني</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={patient?.email}
-                  className="my-input"
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="flex flex-col items-center justify-center">
-                <label htmlFor="phoneNumber">رقم الهاتف</label>
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  id="phoneNumber"
-                  value={patient?.phoneNumber}
-                  className="my-input"
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="flex flex-col items-center justify-center">
-                <label htmlFor="ssn">رقم الهوية</label>
-                <input
-                  type="text"
-                  name="ssn"
-                  id="ssn"
-                  value={patient?.ssn}
-                  className="my-input"
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="flex flex-col items-center justify-center">
-                <label htmlFor="dateOfBirth">تاريخ الميلاد</label>
-                <input
-                  type="date"
-                  name="dateOfBirth"
-                  id="dateOfBirth"
-                  value={patient?.dateOfBirth}
-                  className="my-input"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <p className=" text-center mt-5">
-                البيانات قد تعود لصاحب الحساب او لمريض اخر
-              </p>
-              <label
-                htmlFor=""
-                className="flex flex-row justify-center items-center gap-3 w-full"
+            <p className="lg:text-lg md:text-base text-sm mb-5">
+              الرجاء التأكد من البيانات
+            </p>
+            <div className="flex flex-col gap-2">
+              <p>المريض: {patientDetails?.name}</p>
+              <p>الطبيب: {doctor?.name}</p>
+              <p>الموعد: {date?.toLocaleDateString()}</p>
+              <p>الساعة: {hour}</p>
+            </div>
+            <form
+              className="w-full flex justify-center items-center"
+              onSubmit={handleSubmit}
+            >
+              <button
+                className="px-8 py-1 border-2 border-slate-400 font-semibold mt-5"
+                type="submit"
               >
-                <input
-                  type="checkbox"
-                  name="confirm"
-                  value="confirm"
-                  required
-                />
-                <span className=" font-medium text-sm">
-                  اوافق على ان هذه البيانات صحيحة اي غلط تقع مسؤوليته على
-                  المستخدم
-                </span>
-              </label>
-              <div className="flex flex-col items-center justify-center">
-                <button
-                  className="px-8 py-1 border-2 border-slate-400 font-semibold mt-5"
-                  type="submit"
-                >
-                  تأكيد
-                </button>
-              </div>
+                تأكيد
+              </button>
             </form>
           </div>
         )}
