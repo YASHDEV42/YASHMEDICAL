@@ -21,8 +21,8 @@ const Patient = (props: Props) => {
   );
 
   return (
-    <section className="lg:w-[80vw] w-[90vw] mx-auto h-screen flex flex-col justify-start items-center">
-      <h1 className="mt-28 lg:text-6xl md:text-4xl text-2xl font-semibold text-center">
+    <section className="lg:w-[80vw] w-[90vw] mx-auto py-28 min-h-screen flex flex-col justify-start items-center">
+      <h1 className="lg:text-6xl md:text-4xl text-2xl font-semibold text-center">
         مرحباً {user.name}
       </h1>
       <div className="flex flex-row justify-center items-center gap-5 mt-16 mb-7">
@@ -54,17 +54,22 @@ const Patient = (props: Props) => {
           </p>
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center w-56">
+        <div className="flex flex-col justify-center items-center gap-2 w-56">
           {appointments && appointments.length !== 0 ? (
             appointments.map((appointment) => (
               <div
                 key={appointment._id}
-                className="border-2 border-slate-400 p-2 my-2 w-full"
+                className="border-2 border-slate-400 p-2 w-full h-40 flex flex-col gap-2 justify-center items-end rounded-md"
               >
                 <p>الطبيب: {appointment.dentist?.name}</p>
                 <p>التاريخ: {appointment.date}</p>
                 <p>الوقت: {appointment.hour}</p>
-                <Link href={`/patient/${appointment._id}`}>المزيد</Link>
+                <Link
+                  href={`/patient/${appointment._id}`}
+                  className="bg-slate-600 py-1 px-3 text-white rounded-md"
+                >
+                  المزيد
+                </Link>
               </div>
             ))
           ) : (
@@ -74,7 +79,7 @@ const Patient = (props: Props) => {
             href="/patient/book-appointment"
             className="p-2 border-2 border-slate-400"
           >
-            احجز موعدك
+            احجز موعد
           </Link>
         </div>
       )}

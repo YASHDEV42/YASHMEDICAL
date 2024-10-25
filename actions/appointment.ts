@@ -3,6 +3,8 @@ import connectDB from "@/lib/db";
 import Appointment from "@/models/Appointment";
 import User from "@/models/User";
 import { PatientType } from "@/types/User";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 interface FormData {
   doctor: PatientType;
@@ -65,6 +67,7 @@ const bookAppointment = async (prevState: unknown, formData: FormData) => {
       hour: formData.hour,
     };
     await Appointment.create(appointment);
+    redirect("/patient");
   } catch (error) {
     console.log(error);
   }

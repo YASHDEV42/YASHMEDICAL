@@ -3,16 +3,26 @@ import Link from "next/link";
 import { register } from "@/actions/authentication";
 import React from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
+
 type RegisterFormState = {
   message: string | null;
+  success?: boolean;
 };
 const initialState: RegisterFormState = {
   message: null,
+  success: false,
 };
 
 const SignUp: React.FC = () => {
   const { pending } = useFormStatus();
   const [state, formAction] = useFormState(register, initialState);
+  const router = useRouter();
+  React.useEffect(() => {
+    if (state.success) {
+      router.push("/verify-request");
+    }
+  }, [state.success, router]);
 
   return (
     <section className="lg:w-[80vw] w-[90vw] mx-auto flex flex-col items-center justify-center gap-2 mb-8">
@@ -102,7 +112,11 @@ const SignUp: React.FC = () => {
           />
         </div>
         {state.message && (
-          <p className="text-red-700 text-lg md:text-xl lg:text-2xl font-bold">
+          <p
+            className={`text-lg md:text-xl lg:text-2xl font-bold ${
+              state.success ? "text-green-600" : "text-red-700"
+            }`}
+          >
             {state.message}
           </p>
         )}

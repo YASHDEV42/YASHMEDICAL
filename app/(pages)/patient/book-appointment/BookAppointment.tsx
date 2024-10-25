@@ -3,6 +3,7 @@ import { bookAppointment } from "@/actions/appointment";
 import { Calendar } from "@/components/ui/calendar";
 import { AppointmentType } from "@/types/Appointment";
 import { PatientType } from "@/types/User";
+import { ArrowBigLeft } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -268,6 +269,15 @@ const BookAppointment = ({
               </button>
             </form>
           </div>
+        )}
+        {stepsCounter > 1 && (
+          <span
+            onClick={() => setStepsCounter(stepsCounter - 1)}
+            className="cursor-pointer flex flex-row items-center gap-2 justify-center mt-5"
+          >
+            <ArrowBigLeft />
+            السابق
+          </span>
         )}
       </div>
     </section>

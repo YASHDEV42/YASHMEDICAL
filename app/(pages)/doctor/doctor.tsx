@@ -15,6 +15,7 @@ const Doctor = ({
   const [subPage, setSubPage] = useState<
     "patients" | "appointments" | "settings"
   >("appointments");
+
   return (
     <section className="lg:w-[80vw] w-[90vw] mx-auto h-screen flex flex-col justify-start items-center">
       <h1 className="mt-28 lg:text-6xl md:text-4xl text-2xl font-semibold text-center">
@@ -27,12 +28,12 @@ const Doctor = ({
         >
           البيانات الشخصية
         </button>
-        <button
+        {/* <button
           onClick={() => setSubPage("patients")}
           className={subPage === "patients" ? "underline" : ""}
         >
           المرضى
-        </button>
+        </button> */}
         <button
           onClick={() => setSubPage("appointments")}
           className={subPage === "appointments" ? "underline" : ""}
@@ -40,11 +41,33 @@ const Doctor = ({
           الحجوزات
         </button>
       </div>
-      {subPage === "patients" && (
+      {/* {subPage === "patients" && (
         <div>
-          <p>المرضى</p>
+          {
+            <div className=" flex flex-col justify-center items-center gap-4">
+              {patients && patients.length !== 0 ? (
+                patients.map((patient) => (
+                  <div
+                    key={patient._id}
+                    className="border-2 border-slate-400 p-5 flex flex-col gap-2"
+                  >
+                    <p>المريض: {patient.name}</p>
+                   <Link
+                      href={`/doctor/${appointment._id}`}
+                      className="flex flex-row"
+                    >
+                      <ArrowBigLeft />
+                      المزيد
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <p>لا يوجد مرضى بعد</p>
+              )}
+            </div>
+          }
         </div>
-      )}
+      )} */}
       {subPage === "settings" && (
         <div>
           <p>الاسم: {user.name}</p>

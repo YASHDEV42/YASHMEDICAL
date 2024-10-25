@@ -1,22 +1,55 @@
 import NextAuth from "next-auth";
 import { Account } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs"; // Fixed import typo
+import bcrypt from "bcryptjs";
 import User from "./models/User";
 import connectDB from "./lib/db";
 import { JWT } from "next-auth/jwt";
 import type { Provider } from "next-auth/providers";
+import { randomBytes } from "crypto";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export interface DefaultSession {
   user?: User;
   expires: string;
 }
+
 export interface User {
   id?: string;
   name?: string | null;
   email?: string | null;
   image?: string | null;
   role?: string | null;
+  isVerified?: boolean;
+  verificationToken?: string;
 }
+
+// Function to send verification email
+async function sendVerificationEmail(email: string, token: string) {
+  const verificationLink = `${process.env.NEXTAUTH_URL}/verify?token=${token}`;
+
+  try {
+    await resend.emails.send({
+      from: "Your App <onboarding@resend.dev>",
+      to: email,
+      subject: "Verify your email address",
+      html: `
+        <h2>Email Verification</h2>
+        <p>Please click the link below to verify your email address:</p>
+        <a href="${verificationLink}" style="background-color: #4CAF50; color: white; padding: 14px 20px; text-decoration: none; border-radius: 4px;">
+          Verify Email
+        </a>
+        <p>If you didn't request this email, you can safely ignore it.</p>
+      `,
+    });
+  } catch (error) {
+    console.error("Error sending verification email:", error);
+    throw new Error("Failed to send verification email");
+  }
+}
+
 const providers: Provider[] = [
   Credentials({
     name: "Credentials",
@@ -58,11 +91,26 @@ const providers: Provider[] = [
         throw new Error("Invalid credentials");
       }
 
+      // Check if email is verified
+      if (!user.isVerified) {
+        // Generate new verification token if needed
+        const verificationToken = randomBytes(32).toString("hex");
+        await User.findByIdAndUpdate(user._id, { verificationToken });
+
+        // Resend verification email
+        await sendVerificationEmail(user.email, verificationToken);
+
+        throw new Error(
+          "Please verify your email address. A new verification email has been sent."
+        );
+      }
+
       const userData = {
         name: user.name,
         email: user.email,
         id: user._id.toString(),
         role: user.role,
+        isVerified: user.isVerified,
       };
 
       return userData;
@@ -74,6 +122,7 @@ export const authConfig = {
   providers,
   pages: {
     signIn: "/login",
+    verifyRequest: "/verify-request", // Add this page to show verification instructions
   },
   callbacks: {
     async session({ session, token }: { session: DefaultSession; token: JWT }) {
@@ -81,6 +130,7 @@ export const authConfig = {
         if (session.user) {
           session.user.id = token.sub;
           session.user.role = token.role as string;
+          session.user.isVerified = token.isVerified as boolean;
         }
       }
 
@@ -90,6 +140,7 @@ export const authConfig = {
     async jwt({ token, user }: { token: JWT; user: User }) {
       if (user) {
         token.role = user.role;
+        token.isVerified = user.isVerified;
       }
       return token;
     },
@@ -103,5 +154,23 @@ export const authConfig = {
     },
   },
 };
+
+// Add a function to verify email tokens
+export async function verifyEmail(token: string) {
+  await connectDB();
+
+  const user = await User.findOne({ verificationToken: token });
+
+  if (!user) {
+    throw new Error("Invalid verification token");
+  }
+
+  await User.findByIdAndUpdate(user._id, {
+    isVerified: true,
+    verificationToken: null,
+  });
+
+  return true;
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);

@@ -35,6 +35,14 @@ const userSchema = new mongoose.Schema(
       enum: Object.values(Role),
       default: Role.Patient,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      select: false,
+    },
   },
   {
     timestamps: true,
