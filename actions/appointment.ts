@@ -3,14 +3,13 @@ import connectDB from "@/lib/db";
 import Appointment from "@/models/Appointment";
 import User from "@/models/User";
 import { PatientType } from "@/types/User";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 interface FormData {
   doctor: PatientType;
   patient: PatientType;
-  date: Date; // ISO string for date
-  hour: string; // Time as a string
+  date: Date;
+  hour: string;
 }
 
 function generateRandomPassword(length = 8) {

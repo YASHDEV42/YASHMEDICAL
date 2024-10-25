@@ -26,7 +26,6 @@ export interface User {
   verificationToken?: string;
 }
 
-// Function to send verification email
 async function sendVerificationEmail(email: string, token: string) {
   const verificationLink = `${process.env.NEXTAUTH_URL}/verify?token=${token}`;
 
@@ -90,16 +89,10 @@ const providers: Provider[] = [
       if (!passwordsMatch) {
         throw new Error("Invalid credentials");
       }
-
-      // Check if email is verified
       if (!user.isVerified) {
-        // Generate new verification token if needed
         const verificationToken = randomBytes(32).toString("hex");
         await User.findByIdAndUpdate(user._id, { verificationToken });
-
-        // Resend verification email
         await sendVerificationEmail(user.email, verificationToken);
-
         throw new Error(
           "Please verify your email address. A new verification email has been sent."
         );
@@ -122,7 +115,7 @@ export const authConfig = {
   providers,
   pages: {
     signIn: "/login",
-    verifyRequest: "/verify-request", // Add this page to show verification instructions
+    verifyRequest: "/verify-request",
   },
   callbacks: {
     async session({ session, token }: { session: DefaultSession; token: JWT }) {
@@ -155,7 +148,6 @@ export const authConfig = {
   },
 };
 
-// Add a function to verify email tokens
 export async function verifyEmail(token: string) {
   await connectDB();
 
