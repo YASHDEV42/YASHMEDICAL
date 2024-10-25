@@ -21,16 +21,17 @@ const page = async () => {
   if (!user) {
     redirect("/login");
   }
-  const data: PatientType | null = await User.findOne({ email: user.email });
-  const patientDetails = JSON.parse(JSON.stringify(data));
+  const patientDetails = (await User.findOne({
+    email: user.email,
+  }).lean()) as PatientType | null;
 
-  const doctorsData = await User.find({ role: "doctor" });
-  const doctors: PatientType[] | null = JSON.parse(JSON.stringify(doctorsData));
+  const doctors = (await User.find({ role: "doctor" }).lean()) as
+    | PatientType[]
+    | [];
 
-  const appointmentsData = await Appointment.find();
-  const appointments: AppointmentType[] | null = JSON.parse(
-    JSON.stringify(appointmentsData)
-  );
+  const appointments = (await Appointment.find().populate("dentist").lean()) as
+    | AppointmentType[]
+    | [];
   console.log("appointments", appointments);
 
   return (

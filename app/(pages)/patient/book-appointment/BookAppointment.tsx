@@ -187,7 +187,7 @@ const BookAppointment = ({
                     : appointment.hour;
 
                   // Check if the doctor ID matches the currently selected doctor
-                  const isSameDoctor = appointment.dentist === doctor?._id;
+                  const isSameDoctor = appointment.dentist._id === doctor?._id;
 
                   // Log for debugging
                   console.log(

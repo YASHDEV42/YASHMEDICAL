@@ -1,8 +1,17 @@
 "use client";
+import { AppointmentType } from "@/types/Appointment";
 import { PatientType } from "@/types/User";
+import { ArrowBigLeft } from "lucide-react";
+import Link from "next/link";
 import React, { useState } from "react";
 
-const Doctor = ({ user }: { user: PatientType }) => {
+const Doctor = ({
+  user,
+  appointments,
+}: {
+  user: PatientType;
+  appointments: AppointmentType[] | [];
+}) => {
   const [subPage, setSubPage] = useState<
     "patients" | "appointments" | "settings"
   >("appointments");
@@ -51,8 +60,29 @@ const Doctor = ({ user }: { user: PatientType }) => {
         </div>
       )}
       {subPage === "appointments" && (
-        <div>
-          <p>ليس لديك حجوزات حالياً</p>
+        <div className=" flex flex-col justify-center items-center gap-4">
+          {appointments && appointments.length !== 0 ? (
+            appointments.map((appointment) => (
+              <div
+                key={appointment._id}
+                className="border-2 border-slate-400 p-5 flex flex-col gap-2"
+              >
+                <span>{appointment.isNew && "جديد"}</span>
+                <p>تاريخ الموعد: {appointment.date}</p>
+                <p>الوقت: {appointment.hour}</p>
+                <p>المريض: {appointment.patient.name}</p>
+                <Link
+                  href={`/doctor/${appointment._id}`}
+                  className="flex flex-row"
+                >
+                  <ArrowBigLeft />
+                  المزيد
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>لا يوجد حجوزات</p>
+          )}
         </div>
       )}
     </section>

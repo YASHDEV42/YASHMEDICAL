@@ -1,3 +1,5 @@
+import { PatientType } from "./User";
+
 enum Status {
   "مجدولة",
   "مؤكدة",
@@ -8,8 +10,9 @@ enum Status {
   "قيد التنفيذ",
 }
 export type AppointmentType = {
-  dentist: string;
-  patient: string;
+  _id: string;
+  dentist: PatientType;
+  patient: PatientType;
   date: string;
   hour: string;
   status: Status;

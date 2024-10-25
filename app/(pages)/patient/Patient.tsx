@@ -1,14 +1,21 @@
 "use client";
+import { AppointmentType } from "@/types/Appointment";
 import { PatientType } from "@/types/User";
 import Link from "next/link";
 import React from "react";
 
 type Props = {
   user: PatientType;
+  appointments: AppointmentType[] | [];
 };
 
 const Patient = (props: Props) => {
   const user = props.user;
+  console.log("user with multiple populates", user);
+
+  const appointments = props.appointments;
+  console.log(appointments);
+
   const [subPage, setSubPage] = React.useState<"settings" | "appointments">(
     "appointments"
   );
@@ -47,8 +54,22 @@ const Patient = (props: Props) => {
           </p>
         </div>
       ) : (
-        <div>
-          <p className="mb-5">ليس لديك حجوزات حالياً</p>
+        <div className="flex flex-col justify-center items-center w-56">
+          {appointments && appointments.length !== 0 ? (
+            appointments.map((appointment) => (
+              <div
+                key={appointment._id}
+                className="border-2 border-slate-400 p-2 my-2 w-full"
+              >
+                <p>الطبيب: {appointment.dentist?.name}</p>
+                <p>التاريخ: {appointment.date}</p>
+                <p>الوقت: {appointment.hour}</p>
+                <Link href={`/patient/${appointment._id}`}>المزيد</Link>
+              </div>
+            ))
+          ) : (
+            <p>لا يوجد لديك حجوزات</p>
+          )}
           <Link
             href="/patient/book-appointment"
             className="p-2 border-2 border-slate-400"

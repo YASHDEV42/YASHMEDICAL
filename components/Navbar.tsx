@@ -137,7 +137,7 @@ const Navbar = ({ user }: { user: PatientType }) => {
                       حسابي
                     </Link>
                   </li>
-                  <li onClick={() => setIsOpen(!isOpen)}>
+                  <li>
                     <SignOutBtn />
                   </li>
                 </>

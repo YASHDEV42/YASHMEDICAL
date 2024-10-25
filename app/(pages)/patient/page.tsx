@@ -3,13 +3,21 @@ import { auth } from "@/auth";
 import User from "@/models/User";
 import { PatientType } from "@/types/User";
 import Patient from "./Patient";
+import Appointment from "@/models/Appointment";
+import { AppointmentType } from "@/types/Appointment";
 
 const page = async () => {
   const session = await auth();
   const { email } = session?.user as PatientType;
-  const sampleData = await User.findOne({ email }).select("+password");
-  const user = JSON.parse(JSON.stringify(sampleData));
-  return <Patient user={user} />;
+  const user = (await User.findOne({ email })
+    .select("+password")
+    .lean()) as PatientType;
+  const appointments = (await Appointment.find({
+    patient: user._id,
+  })
+    .populate("dentist")
+    .lean()) as AppointmentType[];
+  return <Patient user={user} appointments={appointments} />;
 };
 
 export default page;
