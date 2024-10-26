@@ -40,14 +40,14 @@ const AppointmentDetails = ({
                   <strong>مؤكد</strong>: تم تأكيد الموعد من قبل الطبيب
                 </p>
                 <p>
-                  <strong>ملغى</strong>: تم إلغاء الموعد من قبل المريض
+                  <strong>ملغي</strong>: تم إلغاء الموعد من قبل المريض
                 </p>
                 <p>
                   <strong>مؤجل</strong>: تم تأجيل الموعد من قبل الطبيب
                 </p>
 
                 <p>
-                  <strong>منتظر</strong>: لم يتم تأكيد الموعد بعد
+                  <strong>مجدول</strong>: لم يتم تأكيد الموعد بعد
                 </p>
 
                 <p>

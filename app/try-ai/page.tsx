@@ -2,17 +2,16 @@
 import { useChat } from "ai/react";
 
 export default function Page() {
-  const { messages, input, handleInputChange, handleSubmit, setInput } =
-    useChat();
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
 
-  const handleToothacheSubmit = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    e.preventDefault();
-    console.log(e);
-    setInput("كيف اخفف الم تسوس الاسنان بشكل مؤقت");
-    handleSubmit();
-  };
+  // const handleToothacheSubmit = async (
+  //   e: React.MouseEvent<HTMLButtonElement>
+  // ) => {
+  //   e.preventDefault();
+  //   console.log(e);
+  //   setInput("كيف اخفف الم تسوس الاسنان بشكل مؤقت");
+  //   handleSubmit();
+  // };
 
   return (
     <div className="flex flex-col justify-center items-end lg:w-[80vw] w-[90vw] min-h-screen py-24 mx-auto text-right">
@@ -26,15 +25,15 @@ export default function Page() {
         </div>
       ))}
 
-      {/* <form onSubmit={handleSubmit} className="w-full h-full">
+      <form onSubmit={handleSubmit} className="w-full h-full">
         <input
           className="fixed bottom-0 left-1/4 w-[50vw] p-2 mb-8 border border-gray-300 rounded shadow-xl text-right"
           value={input}
           placeholder="كيف يمكنني المساعدة؟"
           onChange={handleInputChange}
         />
-      </form> */}
-      <form onSubmit={handleSubmit}>
+      </form>
+      {/* <form onSubmit={handleSubmit}>
         <input
           className="hidden fixed bottom-0 left-1/4 w-[50vw] p-2 mb-8 border border-gray-300 rounded shadow-xl text-right"
           value={input}
@@ -48,7 +47,7 @@ export default function Page() {
         >
           كيف أخفف ألم التسوس؟
         </button>
-      </form>
+      </form> */}
     </div>
   );
 }
