@@ -13,8 +13,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { PatientType } from "@/types/User";
+import TiltComponent from "@/components/Tilt";
 
-const HomePage = () => {
+const HomePage = ({ user }: { user: PatientType | null }) => {
   return (
     <>
       <section className="lg:w-[80vw] w-[90vw] mx-auto h-screen flex justify-center gap-12 lg:gap-12 lg:justify-around flex-col lg:flex-row items-center">
@@ -25,48 +27,71 @@ const HomePage = () => {
           <h1 className=" lg:text-6xl md:text-4xl text-2xl font-bold mb-9">
             مرحبا بكم في شركة البشير
           </h1>
-          <p className=" text-xl">
+          <p className="text-xl mb-4">
             شركة البشير هو مجمع طبي يقدم خدمات طبية متنوعة ومتكاملة للمرضى بأعلى
             مستوى من الجودة والمهنية.
           </p>
+          <div>
+            <button className="primary-btn mr-3">
+              <Link href="/about">المزيد</Link>
+            </button>
+            <button className="secondary-btn">
+              {user ? (
+                <>
+                  {user?.role === "patient" ? (
+                    <Link href="/patient">حسابي</Link>
+                  ) : (
+                    <Link href="/admin">حسابي</Link>
+                  )}
+                </>
+              ) : (
+                <Link href="/register">انشاء حساب</Link>
+              )}
+            </button>
+          </div>
         </div>
       </section>
 
       <section className="lg:w-[80vw] w-[90vw] mx-auto h-[150vh] lg:h-[100vh] flex justify-center gap-12 lg:gap-12 lg:justify-around items-center flex-col flex-wrap lg:flex-row">
-        <div
-          className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
+        <TiltComponent>
+          <div
+            className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
            hover:shadow-2xl"
-        >
-          <GiTechnoHeart size={100} />
-          <p>افضل الادوات الحديثة لضمان افضل خدمة</p>
-        </div>
+          >
+            <GiTechnoHeart size={100} />
+            <p>افضل الادوات الحديثة لضمان افضل خدمة</p>
+          </div>
+        </TiltComponent>
 
-        <div
-          className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
+        <TiltComponent>
+          <div
+            className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
           hover:shadow-2xl"
-        >
-          <FaTooth size={100} />
-          <p>نوفر افضل تعامل وافضل الخدمات</p>
-        </div>
-
-        <div
-          className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
+          >
+            <FaTooth size={100} />
+            <p>نوفر افضل تعامل وافضل الخدمات</p>
+          </div>
+        </TiltComponent>
+        <TiltComponent>
+          <div
+            className="w-64 h-72 bg-black text-white flex flex-col justify-center gap-5 items-center rounded-md p-5
           hover:shadow-2xl"
-        >
-          <FaUserDoctor size={100} />
-          <p>نملك طاقم طبي بتخصصات ومؤهلات عالية</p>
-        </div>
+          >
+            <FaUserDoctor size={100} />
+            <p>نملك طاقم طبي بتخصصات ومؤهلات عالية</p>
+          </div>
+        </TiltComponent>
       </section>
 
       <section className="lg:w-[80vw] w-[90vw] h-screen mx-auto flex items-center justify-center gap-20 lg:gap-0 lg:justify-around flex-col lg:flex-row">
-        <div className=" lg:w-1/4 w-1/3 my-img">
+        <div className="lg:w-1/4 w-1/3 my-img">
           <Image src="/basheer.jpg" alt="basheer" width={300} height={300} />
         </div>
         <div className="lg:w-1/2 w-full">
           <h2 className="lg:text-5xl md:text-3xl text-xl font-semibold lg:mb-7 md:mb-5 mb-3">
             شركة بشير عبيد للاسنان
           </h2>
-          <p className="lg:text-xl md:text-lg text-base opacity-90">
+          <p className="lg:text-xl md:text-lg text-base opacity-90 mb-5">
             شركة بشير عبيد لطب الأسنان هو أحد أول المراكز المتخصصة في طب الأسنان
             في الرياض. قدم الدكتور محمد بشير عبيد (رحمه الله) إلى المملكة
             العربية السعودية في عام 1950م ليحظى بشرف خدمة مؤسس المملكة العربية
@@ -76,15 +101,9 @@ const HomePage = () => {
             وبعد عدة سنوات، تم نقل العيادة إلى أحد الأحياء التي كانت تُعتبر من
             أرقى أحياء الرياض، في شارع الخزان.
           </p>
-          <div>
-            <Link
-              href="/about"
-              className="flex flex-row justify-center items-center gap-2 w-28 bg-black text-white p-2 rounded-md mt-3"
-            >
-              <ArrowBigLeft /> أقرأ اكثر
-            </Link>
-            <span></span>
-          </div>
+          <Link href="/about" className="primary-btn mt-5">
+            أقرأ اكثر
+          </Link>
         </div>
       </section>
 
@@ -202,13 +221,13 @@ const HomePage = () => {
 
       <section
         className="lg:w-[80vw] w-[90vw] mx-auto lg:h-screen h-[170vh] flex flex-col
-       lg:justify-center justify-start lg:gap-40 gap-14 items-center"
+       lg:justify-center justify-start  gap-14 items-center"
       >
-        <h1 className="lg:text-5xl md:text-3xl text-xl font-semibold lg:mb-7 md:mb-5 mb-3">
+        <h1 className="lg:text-5xl md:text-3xl text-xl font-semibold lg:mb-5 md:mb-5 mb-3">
           طاقمنا الطبي الخبير
         </h1>
-        <div className="flex flex-col w-full h-full pb-10 justify-between items-center gap-7">
-          <div className=" h-full flex lg:flex-row flex-col justify-around items-center w-full">
+        <div className="flex flex-col w-full h-full pb-10 justify-center items-center">
+          <div className="h-full lg:h-64 flex lg:flex-row flex-col justify-around items-center w-full">
             <div className=" w-80 h-44 border-2 border-slate-400 flex flex-col justify-end items-center gap-5 rounded-3xl relative pb-3">
               <Image
                 src="/doctor4.jpg"
@@ -261,10 +280,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <Link
-            href="/"
-            className="flex flex-row items-center justify-center gap-2 w-28 h-10 border-2 border-slate-400 rounded-md"
-          >
+          <Link href="/about/doctors" className="primary-btn flex flex-row">
             <ArrowBigLeft />
             المزيد
           </Link>
@@ -284,12 +300,19 @@ const HomePage = () => {
             <h1 className=" lg:text-5xl md:text-2xl text-lg font-semibold">
               صدق, توقع, حقق
             </h1>
-            <Link
-              href="/"
-              className="w-44 h-14 border-2 border-slate-400 flex justify-center items-center mt-5 rounded-md cursor-pointer"
-            >
-              احجز موعدك الان
-            </Link>
+            <button className="secondary-btn mt-2">
+              {user ? (
+                <>
+                  {user.role == "patient" ? (
+                    <Link href="/patient">احجز موعد</Link>
+                  ) : (
+                    <Link href="/doctor">المواعيد</Link>
+                  )}
+                </>
+              ) : (
+                <Link href="/register">انشاء حساب</Link>
+              )}
+            </button>
           </div>
         </div>
         <div className="h-1/5 w-full bg-slate-800 flex flex-row justify-center items-center gap-12">

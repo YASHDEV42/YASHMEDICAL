@@ -1,40 +1,21 @@
-// <<<<<<< HEAD
-// // "use client";
-// // import React, { useEffect, useRef } from "react";
-// // import VanillaTilt from "vanilla-tilt";
-// // import { TiltOptions } from "vanilla-tilt";
-// =======
-// "use client";
-// import React, { useEffect, useRef } from "react";
-// import { TiltOptions } from "vanilla-tilt";
-// >>>>>>> 8cab1e59e9b5b0c2123acff9777f980c45c147b5
+"use client";
 
-// // interface TiltProps {
-// //   options: TiltOptions | undefined;
-// //   children: React.ReactNode;
-// // }
+import { Tilt } from "react-tilt";
 
-// // const Tilt = ({ options, children }: TiltProps) => {
-// //   const tiltRef = useRef<HTMLDivElement | null>(null);
+const defaultOptions = {
+  reverse: true, // reverse the tilt direction
+  max: 35, // max tilt rotation (degrees)
+  perspective: 1000, // Transform perspective, the lower the more extreme the tilt gets.
+  scale: 1.1, // 2 = 200%, 1.5 = 150%, etc..
+  speed: 1000, // Speed of the enter/exit transition
+  transition: true, // Set a transition on enter/exit.
+  axis: null, // What axis should be disabled. Can be X or Y.
+  reset: true, // If the tilt effect has to be reset on exit.
+  easing: "cubic-bezier(.03,.98,.52,.99)", // Easing on enter/exit.
+};
 
-// //   useEffect(() => {
-// //     const tiltElement = tiltRef.current;
-// //     if (tiltElement) {
-// //       VanillaTilt.init(tiltElement, options);
-// //     }
+const TiltComponent = ({ children }: { children: React.ReactNode }) => {
+  return <Tilt options={defaultOptions}>{children}</Tilt>;
+};
 
-// //     return () => {
-// //       if (tiltElement?.vanillaTilt) {
-// //         tiltElement.vanillaTilt.destroy();
-// //       }
-// //     };
-// //   }, [options]);
-
-// //   return (
-// //     <div ref={tiltRef} className="tilt-root">
-// //       <div className="tilt-child">{children}</div>
-// //     </div>
-// //   );
-// // };
-
-// // export default Tilt;
+export default TiltComponent;

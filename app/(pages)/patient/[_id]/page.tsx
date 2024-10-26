@@ -19,7 +19,9 @@ const page = async ({ params }: { params: { _id: string } }) => {
   }
   const appointment = (await Appointment.findOne({
     _id,
-  }).lean()) as AppointmentType;
+  })
+    .populate("dentist")
+    .lean()) as AppointmentType;
 
   return <AppointmentDetails user={user} appointment={appointment} />;
 };

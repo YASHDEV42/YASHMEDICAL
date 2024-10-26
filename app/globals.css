@@ -26,6 +26,14 @@ body {
   height: 100%;
   border: 10px solid black;
   z-index: -100;
+  transition: all 0.5s;
+}
+.my-img:hover::before {
+  @apply lg:scale-110;
+  @apply scale-[1.2];
+  @apply top-0;
+  @apply left-0;
+  @apply lg:-left-[4px];
 }
 .background-img {
   background-image: url("/The Hero.jpg");
@@ -47,6 +55,42 @@ body {
   background: inherit;
   filter: brightness(50%);
   z-index: -1;
+}
+.primary-btn {
+  @apply bg-slate-700;
+  @apply font-semibold;
+  @apply text-primary-foreground;
+  @apply px-4;
+  @apply py-2;
+  @apply rounded-md;
+  @apply shadow-md;
+  @apply transition;
+  @apply duration-200;
+  @apply cursor-pointer;
+}
+.primary-btn:hover {
+  @apply shadow-lg;
+  @apply bg-slate-900;
+  @apply transform;
+  @apply scale-105;
+}
+.secondary-btn {
+  @apply bg-slate-200;
+  @apply font-semibold;
+  @apply text-secondary-foreground;
+  @apply px-4;
+  @apply py-2;
+  @apply rounded-md;
+  @apply shadow-md;
+  @apply transition;
+  @apply duration-200;
+  @apply cursor-pointer;
+}
+.secondary-btn:hover {
+  @apply shadow-lg;
+  @apply bg-slate-300;
+  @apply transform;
+  @apply scale-105;
 }
 .my-input {
   @apply text-lg;

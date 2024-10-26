@@ -28,20 +28,26 @@ const Patient = (props: Props) => {
       <div className="flex flex-row justify-center items-center gap-5 mt-16 mb-7">
         <button
           onClick={() => setSubPage("settings")}
-          className={subPage === "settings" ? "underline" : ""}
+          className={
+            subPage === "settings" ? "primary-btn underline" : "secondary-btn"
+          }
         >
           البيانات الشخصية
         </button>
         <button
           onClick={() => setSubPage("appointments")}
-          className={subPage === "appointments" ? "underline" : ""}
+          className={
+            subPage === "appointments"
+              ? "primary-btn underline"
+              : "secondary-btn"
+          }
         >
           الحجوزات
         </button>
       </div>
 
       {subPage === "settings" ? (
-        <div>
+        <div className=" text-lg flex flex-col gap-3 items-end justify-center">
           <p>الاسم: {user.name}</p>
           <p> {user.email} : البريد الالكتروني</p>
           <p> {user.phoneNumber} : رقم الهاتف</p>
@@ -54,19 +60,24 @@ const Patient = (props: Props) => {
           </p>
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center gap-2 w-56">
+        <div className="flex lg:flex-row flex-wrap flex-col justify-center items-center gap-10 lg:w-full w-56">
           {appointments && appointments.length !== 0 ? (
             appointments.map((appointment) => (
               <div
                 key={appointment._id}
-                className="border-2 border-slate-400 p-2 w-full h-40 flex flex-col gap-2 justify-center items-end rounded-md"
+                className="border-2 border-slate-400 p-2 lg:w-1/4 w-full h-40 flex flex-col gap-2 justify-center items-end rounded-md shadow-md
+                hover:scale-105 hover:border-slate-800 transform transition-transform  duration-300 ease-in-out"
               >
-                <p>الطبيب: {appointment.dentist?.name}</p>
-                <p>التاريخ: {appointment.date}</p>
-                <p>الوقت: {appointment.hour}</p>
+                <p className="font-semibold">
+                  الطبيب: {appointment.dentist?.name}
+                </p>
+                <p className=" italic opacity-90">
+                  التاريخ: {appointment.date}
+                </p>
+                <p>الساعة: {appointment.hour}</p>
                 <Link
                   href={`/patient/${appointment._id}`}
-                  className="bg-slate-600 py-1 px-3 text-white rounded-md"
+                  className="secondary-btn"
                 >
                   المزيد
                 </Link>
@@ -75,14 +86,11 @@ const Patient = (props: Props) => {
           ) : (
             <p>لا يوجد لديك حجوزات</p>
           )}
-          <Link
-            href="/patient/book-appointment"
-            className="p-2 border-2 border-slate-400"
-          >
-            احجز موعد
-          </Link>
         </div>
       )}
+      <Link href="/patient/book-appointment" className="primary-btn mt-10">
+        احجز موعد
+      </Link>
     </section>
   );
 };
