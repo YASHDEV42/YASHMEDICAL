@@ -1,7 +1,6 @@
 "use client";
 import { AppointmentType } from "@/types/Appointment";
 import { PatientType } from "@/types/User";
-import { ArrowBigLeft } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
