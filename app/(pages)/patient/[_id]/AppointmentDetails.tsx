@@ -23,53 +23,60 @@ const AppointmentDetails = ({
 
   return (
     <section className="lg:w-[80vw] w-[90vw] mx-auto h-screen flex flex-col justify-center items-center text-lg">
-      <div>
-        <p className=" text-2xl font-semibold">الاسم: {user.name}</p>
-        <p>
-          حالة الموعد : {appointment.status} <AlertCircle />
-        </p>
+      <div className="flex flex-col w-full justify-center items-center gap-2 lg:gap-4">
+        <h2 className="lg:text-4xl md:text-3xl text-2xl font-semibold">
+          الاسم: {user.name}
+        </h2>
         <Dialog>
-          <DialogTrigger>ما معنى حالة موعدك ؟</DialogTrigger>
+          <DialogTrigger className="text-lg lg:text-2xl md:text-xl flex flex-row gap-2 justify-center items-center  underline">
+            <AlertCircle />
+            حالة الموعد : {appointment.status}
+          </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle className="text-right pr-5">
+              <DialogTitle className="text-center text-2xl pr-5">
                 ما معنى حالة موعدك ؟
               </DialogTitle>
               <DialogDescription className="text-right">
-                <p>
-                  <strong>مؤكد</strong>: تم تأكيد الموعد من قبل الطبيب
+                <p className="font-semibold text-lg">
+                  <strong>مكتملة</strong>: تم إنهاء الموعد
                 </p>
-                <p>
-                  <strong>ملغي</strong>: تم إلغاء الموعد من قبل المريض
-                </p>
-                <p>
-                  <strong>مؤجل</strong>: تم تأجيل الموعد من قبل الطبيب
-                </p>
-
-                <p>
+                <p className="font-semibold text-lg">
                   <strong>مجدول</strong>: لم يتم تأكيد الموعد بعد
                 </p>
-
-                <p>
-                  <strong>مكتملة</strong>: تم إنهاء الموعد
+                <p className="font-semibold text-lg">
+                  <strong>مؤكد</strong>: تم تأكيد الموعد من قبل الطبيب
+                </p>
+                <p className="font-semibold text-lg">
+                  <strong>ملغي</strong>: تم إلغاء الموعد من قبل الطبيب
+                </p>
+                <p className="font-semibold text-lg">
+                  <strong>لم يحضر</strong>: لم يتم حضور الموعد من قبل المريض
                 </p>
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
         </Dialog>
-        <p> {user.email} : البريد الالكتروني</p>
+        {/* <p> {user.email} : البريد الالكتروني</p>
         <p> {user.phoneNumber} : رقم الهاتف</p>
         <p> رقم الهوية : {user.ssn}</p>
         <p>
           {" "}
           العمر:{" "}
           {new Date().getFullYear() - new Date(user.dateOfBirth).getFullYear()}
-        </p>
+        </p> */}
       </div>
-      <div>
-        <p>تاريخ الحجز: {appointment.date}</p>
-        <p>الوقت: {appointment.hour}</p>
-        <p>الدكتور: {appointment.dentist.name}</p>
+      <div className="flex flex-col gap-1 lg:gap-2 mt-2 lg:mt-4">
+        <p className="text-lg lg:text-2xl md:text-xl">
+          تاريخ الحجز: {appointment.date}
+        </p>
+        <p className="text-lg lg:text-2xl md:text-xl">
+          الوقت: {appointment.hour}
+        </p>
+        <p className="text-lg lg:text-2xl md:text-xl">
+          {/* to do: put a link to the doctor page with the doctor id */}
+          الدكتور: <span className="underline">{appointment.dentist.name}</span>
+        </p>
       </div>
     </section>
   );

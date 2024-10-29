@@ -10,8 +10,6 @@ const initialState: RegisterFormState = {
   message: null,
 };
 const LoginPage = () => {
-  const { pending } = useFormStatus();
-
   const [state, formAction] = useFormState(login, initialState);
 
   return (
@@ -59,16 +57,22 @@ const LoginPage = () => {
             انشاء حساب جديد
           </Link>
           <span>أو</span>
-          <button
-            type="submit"
-            className="flex flex-row items-center justify-center gap-2 w-28 h-10 border-2 border-slate-400 rounded-md"
-          >
-            {pending ? " ...يتم تسجيل الدخول" : "تسجيل الدخول"}
-          </button>
+          <Button />
         </div>
       </form>
     </section>
   );
 };
-
+const Button = () => {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      className={`primary-btn rounded-md ${pending && "opacity-60 "}`}
+      disabled={pending}
+    >
+      {pending ? " ...يتم تسجيل الدخول" : "تسجيل الدخول"}
+    </button>
+  );
+};
 export default LoginPage;

@@ -83,22 +83,26 @@ const Doctor = ({
         </div>
       )}
       {subPage === "appointments" && (
-        <div className=" flex flex-col justify-center items-center gap-4">
+        <div className="flex lg:flex-row flex-wrap flex-col justify-center items-center gap-10 lg:w-full w-56">
           {appointments && appointments.length !== 0 ? (
             appointments.map((appointment) => (
               <div
                 key={appointment._id}
-                className="border-2 border-slate-400 p-5 flex flex-col gap-2"
+                className="border-2 border-slate-400 p-2 lg:w-1/4 w-full h-40 flex flex-col gap-2 justify-center items-end rounded-md shadow-md
+                hover:scale-105 hover:border-slate-800 transform transition-transform  duration-300 ease-in-out"
               >
-                <span>{appointment.isNew && "جديد"}</span>
+                {appointment.isNew && (
+                  <span className=" absolute bottom-2 left-2 bg-red-600 rounded-full h-12 w-12 flex items-center justify-center text-white">
+                    جديد
+                  </span>
+                )}
                 <p>تاريخ الموعد: {appointment.date}</p>
                 <p>الوقت: {appointment.hour}</p>
                 <p>المريض: {appointment.patient.name}</p>
                 <Link
                   href={`/doctor/${appointment._id}`}
-                  className="flex flex-row"
+                  className="secondary-btn"
                 >
-                  <ArrowBigLeft />
                   المزيد
                 </Link>
               </div>

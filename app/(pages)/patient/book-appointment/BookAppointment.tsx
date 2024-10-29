@@ -65,7 +65,7 @@ const BookAppointment = ({
               خطوات بسيطة وواضحة
             </p>
             <button
-              className="px-8 py-1 border-2 border-slate-400 font-semibold mt-5"
+              className="primary-btn mt-5"
               onClick={() => {
                 toast.dismiss();
                 setStepsCounter(1);
@@ -94,7 +94,7 @@ const BookAppointment = ({
               name=""
               id=""
               onChange={handleDoctorChange}
-              className="text-right"
+              className="text-center lg:text-2xl md:text-xl text-lg"
             >
               {doctors &&
                 doctors.map((doctor: PatientType | null) => (
@@ -104,7 +104,7 @@ const BookAppointment = ({
                 ))}
             </select>
             <button
-              className="px-8 py-1 border-2 border-slate-400 font-semibold mt-5"
+              className="primary-btn mt-5"
               disabled={loading}
               onClick={() => {
                 toast.success("تم اختيار الطبيب");
@@ -142,7 +142,7 @@ const BookAppointment = ({
               onSelect={setDate}
             />
             <button
-              className="px-8 py-1 border-2 border-slate-400 font-semibold mt-5"
+              className="primary-btn mt-5"
               disabled={loading}
               onClick={() => {
                 toast.success(`تم اختيار الموعد`);
@@ -212,7 +212,7 @@ const BookAppointment = ({
                 return (
                   <button
                     key={time}
-                    className="px-8 py-1 border-2 border-slate-400 font-semibold"
+                    className={`${isBooked ? "secondary-btn" : "primary-btn"}`}
                     disabled={isBooked || loading}
                     onClick={() => {
                       if (!isBooked) {
@@ -261,10 +261,7 @@ const BookAppointment = ({
               className="w-full flex justify-center items-center"
               onSubmit={handleSubmit}
             >
-              <button
-                className="px-8 py-1 border-2 border-slate-400 font-semibold mt-5"
-                type="submit"
-              >
+              <button className="primary-btn mt-5" type="submit">
                 تأكيد
               </button>
             </form>
@@ -273,7 +270,7 @@ const BookAppointment = ({
         {stepsCounter > 1 && (
           <span
             onClick={() => setStepsCounter(stepsCounter - 1)}
-            className="cursor-pointer flex flex-row items-center gap-2 justify-center mt-5"
+            className="secondary-btn flex flex-row justify-center items-center gap-3 mt-5"
           >
             <ArrowBigLeft />
             السابق

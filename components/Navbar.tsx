@@ -51,7 +51,7 @@ const Navbar = ({ user }: { user: PatientType }) => {
           </li>
           <li>
             <Link href="/try-ai" passHref legacyBehavior>
-              جرب الذكاء الصناعي
+              AI
             </Link>
           </li>
           {user ? (
@@ -121,7 +121,7 @@ const Navbar = ({ user }: { user: PatientType }) => {
           </li>
           <li>
             <Link href="/try-ai" passHref onClick={() => setIsOpen(!isOpen)}>
-              جرب الذكاء الصناعي
+              AI
             </Link>
           </li>
           {user ? (

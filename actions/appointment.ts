@@ -66,9 +66,9 @@ const bookAppointment = async (prevState: unknown, formData: FormData) => {
       hour: formData.hour,
     };
     await Appointment.create(appointment);
-    redirect("/patient");
   } catch (error) {
     console.log(error);
   }
+  redirect("/patient");
 };
 export { bookAppointment };

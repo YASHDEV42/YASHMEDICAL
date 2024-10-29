@@ -15,7 +15,6 @@ const initialState: RegisterFormState = {
 };
 
 const SignUp: React.FC = () => {
-  const { pending } = useFormStatus();
   const [state, formAction] = useFormState(register, initialState);
   const router = useRouter();
   React.useEffect(() => {
@@ -125,15 +124,22 @@ const SignUp: React.FC = () => {
             تسجيل الدخول
           </Link>
           <span>أو</span>
-          <button
-            type="submit"
-            className="flex flex-row items-center justify-center gap-2 w-28 h-10 border-2 border-slate-400 rounded-md"
-          >
-            {pending ? "جاري اشاء حساب" : "انشاء حساب"}
-          </button>
+          <Button />
         </div>
       </form>
     </section>
+  );
+};
+const Button = () => {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      className={`primary-btn rounded-md ${pending && "opacity-60"}`}
+      disabled={pending}
+    >
+      {pending ? "جاري اشاء حساب" : "انشاء حساب"}
+    </button>
   );
 };
 
